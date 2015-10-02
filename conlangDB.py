@@ -1,11 +1,10 @@
 import dataset
 import random
 import sys
-from pyfiglet import Figlet
 from tabulate import tabulate
 
 
-db = dataset.connect('sqlite:///tsayowords.db')
+db = dataset.connect('sqlite:///words.db')
 
 
 def transcribePhonemes(word):
@@ -96,27 +95,27 @@ def transcribeAllophones(word):
 
 def outputWord(word, t):
         meaning = word['english']
-        tsayo = word['word']
-        phonetic = transcribePhonemes(tsayo)
+        conlang = word['word']
+        phonetic = transcribePhonemes(conlang)
         allophonetic = transcribeAllophones(phonetic)
         harmony = word['harmony']
         form = word['form']
 
         if t == "english":
-                print(tabulate([[meaning, tsayo, form],
+                print(tabulate([[meaning, conlang, form],
                                 ["", phonetic, harmony + " harmony"],
                                 ["", allophonetic, ""]],
-                               headers=['English', 'Tsāyo', 'Features']))
+                               headers=['English', 'Conlang', 'Features']))
 
-        elif t == "onlytsayo":
-                print(tabulate([[tsayo], [phonetic], [allophonetic]],
-                      headers=["Tsāyo"]))
+        elif t == "onlyconlang":
+                print(tabulate([[conlang], [phonetic], [allophonetic]],
+                      headers=["Conlang"]))
 
         else:
-                print(tabulate([[tsayo, meaning, form],
+                print(tabulate([[conlang, meaning, form],
                                 [phonetic, "", harmony + " harmony"],
                                 [allophonetic, "", ""]],
-                               headers=['Tsāyo', 'English', 'Features']))
+                               headers=['Conlang', 'English', 'Features']))
 
 
 def query():
@@ -136,7 +135,7 @@ def search():
         result = db['words'].find(word=term)
         if result is not None:
                 for word in result:
-                        outputWord(word, "tsayo")
+                        outputWord(word, "onlyconlang")
                         print("")
 
 
@@ -228,8 +227,8 @@ def quit():
 
 
 def conjugate():
-        tsayo = input("Enter verb (in Tsāyo) to conjugate: ")
-        word = db['words'].find_one(word=tsayo)
+        conlang = input("Enter verb (in conlang) to conjugate: ")
+        word = db['words'].find_one(word=conlang)
         if word is None:
                 print("Word does not exist!")
                 return 0
@@ -260,7 +259,7 @@ def conjugate():
         if word['word'][-1] == "ő" and word['word'][-3] == "ő":
                 word['word'] = word['word'][:-1] + "e"
 
-        outputWord(word, "onlytsayo")
+        outputWord(word, "onlyconlang")
 
 
 def list():
@@ -282,23 +281,20 @@ def list():
                         for word in db.query('SELECT * FROM words WHERE form LIKE "other"'):
                                 outList.append([word['english'], word['word'], word['harmony'], word['form']])
 
-        print(tabulate(outList, headers=["English", "Tsāyo", "Harmony", "Form"]))
+        print(tabulate(outList, headers=["English", "Conlang", "Harmony", "Form"]))
 
 
 def add():
         meaning = input("Enter meaning in English: ")
-        tsayo = input("Enter word in Tsāyo: ")
+        conlang = input("Enter word in conlang: ")
         harmony = input("Enter harmony (front/back/no): ")
         form = input("Enter part of speech (verb/noun/other): ")
 
-        db['words'].insert(dict(english=meaning, word=tsayo, harmony=harmony, form=form))
+        db['words'].insert(dict(english=meaning, word=conlang, harmony=harmony, form=form))
         print("Word saved in database!")
 
 
 def main():
-        f = Figlet(font="ogre")
-        print(f.renderText("TsayoDB"))
-        print("Welcome to tsayoDB! Dickhead")
         commands = {"add": add,
                     "list": list,
                     "conjugate": conjugate,
