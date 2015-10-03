@@ -1,6 +1,7 @@
 import dataset
-import random
 import re
+
+from Generator import generateWord
 
 db = dataset.connect('sqlite:///words.db')
 phonemes = {}
@@ -48,17 +49,6 @@ def searchWords(term):
     conlangresult = db['words'].find(word=term)
 
     return (list(englishresult), list(conlangresult))
-
-
-def generateWord(meaning, form):
-    '''Takes an English string and desired form. Returns a generated word.'''
-    word = ""
-
-    for syllable in range(random.randint(2, 5)):
-        word += random.choice(categories["consonants"])
-        word += random.choice(categories["vowels"])
-
-    return {'english': meaning, 'word': word, 'form': form}
 
 
 def getAvailableDeclensions():
@@ -157,6 +147,10 @@ def setAllophones(l):
 def setCategories(l):
     global categories
     categories = l
+
+
+def getCategories():
+    return categories
 
 
 def setDeclensions(l):
