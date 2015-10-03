@@ -135,7 +135,7 @@ def declineWord(word, d):
         
         word['word'] = re.sub(dec[0], dec[1], word['word'])
 
-        outputWord(word, "onlyconlang")
+        return word
 
 def findConWord(term):
         word = db['words'].find_one(word=term)

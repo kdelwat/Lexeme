@@ -43,7 +43,9 @@ def decline():
     print("Select declension:")
     dec = IOHelper.createMenu(Library.getAvailableDeclensions())
 
-    print(Library.declineWord(result, dec))
+    output = Library.declineWord(result, dec)
+
+    outputWord(output, "onlyconlang")
 
 def outputWord(word, outputtype):
     english = word['english']
