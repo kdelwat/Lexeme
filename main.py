@@ -4,6 +4,7 @@ import sys
 from tabulate import tabulate
 
 wordgensettings = {}
+formrules = {}
 
 
 def add():
@@ -128,10 +129,11 @@ def generate():
 
     accepted = False
     while accepted is not True:
-        word = Library.generateWord(english, form, categories, wordgensettings)
+        word = Library.generateWord(english, form, categories, wordgensettings,
+                                    formrules)
         while Library.wordExists(word['word']):
             word = Library.generateWord(english, form, categories,
-                                        wordgensettings)
+                                        wordgensettings, formrules)
         outputWord(word, "english")
         accepted = IOHelper.yesNo("Accept word")
 
@@ -149,6 +151,9 @@ def loadData(filename):
 
     global wordgensettings
     wordgensettings = result[4]
+
+    global formrules
+    formrules = result[5]
 
     Library.setPhonemes(phonemes)
     Library.setAllophones(allophones)

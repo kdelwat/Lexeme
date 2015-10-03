@@ -36,8 +36,8 @@ def parseConfig(filename):
     else:
         formrules = None
 
-    print(formrules)
-    return (phonemes, allophones, declensions, wordgencategories, wordsettings)
+    return (phonemes, allophones, declensions, wordgencategories, wordsettings,
+            formrules)
 
 
 def parseSylRule(string):

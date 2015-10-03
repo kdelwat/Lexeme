@@ -1,16 +1,22 @@
 import random
 
 
-def generateWord(meaning, form, categories, settings):
+def generateWord(meaning, form, categories, settings, formrules=None):
     '''Takes an English string, desired form, generation
-    categories, and settings. Returns a generated word.
+    categories, settings, and optional form-specific rules.
+    Returns a generated word.
     '''
     word = ""
     print(categories)
 
     minS = settings["minS"]
     maxS = settings["maxS"]
-    rule = settings["rule"]
+    defaultrule = settings["rule"]
+    if form in formrules:
+        rule = formrules[form]
+    else:
+        rule = defaultrule
+
     print(rule)
     for syllable in range(random.randint(minS, maxS)):
         word += generateSyllable(categories, rule)
