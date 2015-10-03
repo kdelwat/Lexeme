@@ -8,6 +8,7 @@ from IOHelper import parseDic
 
 db = dataset.connect('sqlite:///words.db')
 phonemes = {}
+allophones = {}
 
 # Transcribe from orthographic representation to phonetic representation
 def transcribePhonemes(word):
@@ -22,10 +23,9 @@ def transcribePhonemes(word):
 
 def transcribeAllophones(word):
         word = word[1:-1]
-
-        if word[0] in ["p", "b", "t"] and word[0:3] != "t͜s":
-                sub = {"p": "pʷ", "b": "bʷ", "t": "tʷ"}
-                word = sub[word[0]] + word[1:]
+        
+        for current, new in allophones.items():
+            word = re.sub(current, new, word)
 
         return word
 
@@ -198,6 +198,8 @@ def main():
 
         global phonemes
         phonemes = parseDic("phonemes.txt")
+        global allophones
+        allophones = parseDic("allophones.txt")
 
         command = input("Please enter a command: ")
         while command != "quit":
