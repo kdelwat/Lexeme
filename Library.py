@@ -12,7 +12,6 @@ allophones = {}
 vowels = []
 consonants = []
 
-# Declension information
 declensions = {}
 
 class WordNotFoundError(RuntimeError):
@@ -83,7 +82,7 @@ def searchWords(term):
         #                print("")
         return (list(englishresult), list(conlangresult))
 
-
+''' Takes an English string and desired form. Returns a generated word. '''
 def generateWord(meaning, form):
         word = ""
 
@@ -116,6 +115,8 @@ def findConWord(term):
         else:
             return word
 
+''' Finds the first occurrence of term in English column of database 
+    and returns as a word. '''
 def findEnglishWord(term):
     word = db['words'].find_one(english=english)
 
@@ -124,6 +125,9 @@ def findEnglishWord(term):
     else:
         return word
 
+''' Accepts string and searches for it in conlang words list and English words
+    list. If word exists in database, returns True, otherwise returns False.
+    '''
 def wordExists(term):
     try:
         findConWord(term)
@@ -159,7 +163,7 @@ def addWord(meaning, word, form):
         db['words'].insert(dict(english=meaning, word=word, form=form))
         return 0
 
-# Loads all language-specific information from file
+''' Loads all language-specific information from file. '''
 def loadData():
     global phonemes
     phonemes = parseDic("phonemes.txt")
