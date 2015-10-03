@@ -293,7 +293,6 @@ def add():
         db['words'].insert(dict(english=meaning, word=conlang, harmony=harmony, form=form))
         print("Word saved in database!")
 
-
 def main():
         commands = {"add": add,
                     "list": list,
