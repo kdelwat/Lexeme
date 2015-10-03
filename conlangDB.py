@@ -1,6 +1,7 @@
 import dataset
 import random
 import sys
+import re
 from tabulate import tabulate
 
 from IOHelper import parseDic
@@ -10,11 +11,9 @@ phonemes = {}
 
 # Transcribe from orthographic representation to phonetic representation
 def transcribePhonemes(word):
-        sub = {'ē': 'ɛː', 'ō': 'ɔː', 'ā': 'aː', 'ts': 't͜s',
-               'y': 'j', 'ő': 'ø', 'e': 'ɛ', 'o': 'ɔ'}
-
+        
         for current, new in phonemes.items():
-                word = word.replace(current, new)
+                word = re.sub(current, new, word)
 
         word = "/" + word + "/"
 
@@ -197,6 +196,7 @@ def main():
         commandList = commandList[:-2] + "."
         print("Available commands: " + commandList)
 
+        global phonemes
         phonemes = parseDic("phonemes.txt")
 
         command = input("Please enter a command: ")
