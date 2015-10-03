@@ -27,6 +27,16 @@ def parseConfig(filename):
     wordsettings["minS"] = int(parser["WORDGEN-SETTINGS"]["MinSyllable"])
     wordsettings["rule"] = parseSylRule(parser["WORDGEN-SETTINGS"]["Rule"])
 
+    # Parse form-specific rules
+    if "FormRules" in parser["WORDGEN-SETTINGS"]:
+        rawformrules = parser["WORDGEN-SETTINGS"]["FormRules"]
+        formrules = convertListToDic(convertList(rawformrules))
+        for rule in formrules:
+            formrules[rule] = parseSylRule(formrules[rule])
+    else:
+        formrules = None
+
+    print(formrules)
     return (phonemes, allophones, declensions, wordgencategories, wordsettings)
 
 

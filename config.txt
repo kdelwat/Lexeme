@@ -5,12 +5,15 @@ Allophones = ^p:pʷ, ^b:bʷ, ^t:tʷ
 [WORDGEN-SETTINGS]
 MaxSyllable = 1
 MinSyllable = 1
-Rule = (Consonants)2|Vowels|(Consonants)4|Justx|(Justx)3
+Rule = (Consonants)2|Vowels|(Consonants)4
+FormRules = noun:Vowels|Justn, verb:(Consonants)2|Justx
 
 [WORDGEN-CATEGORIES]
 Vowels = a, e, ő, ā, ē
 Consonants = p, b, t, ts, d, k, s, m, h, y
+Justn = n
 Justx = x
+
 [DECLENSION]
 PROG = $->ba
 INCH = $->tse
