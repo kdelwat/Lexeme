@@ -41,3 +41,17 @@ def createMenu(options):
         response = int(input("Enter selection: "))
 
     return options[response - 1]
+
+def chooseOption(prompt, options):
+    olist = " ("
+    for o in options[:-1]:
+        olist = olist + o + "/"
+    olist = olist + options[-1] + "): "
+
+    response = input(prompt + olist)
+
+    while response not in options:
+        print("Response not in options")
+        response = input(prompt + olist)
+
+    return response
