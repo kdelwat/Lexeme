@@ -4,11 +4,13 @@ import sys
 import re
 from tabulate import tabulate
 
-from IOHelper import parseDic
+from IOHelper import parseDic, parseList
 
 db = dataset.connect('sqlite:///words.db')
 phonemes = {}
 allophones = {}
+vowels = {}
+consonants = {}
 
 # Transcribe from orthographic representation to phonetic representation
 def transcribePhonemes(word):
@@ -77,8 +79,6 @@ def search():
 
 def generateWord(meaning, form):
         word = ""
-        consonants = ["p", "b", "t", "ts", "d", "k", "s", "m", "h", "y"]
-        vowels = ["a", "e", "ő", "ā", "ē",]
 
         for syllable in range(random.randint(2, 5)):
             word += random.choice(consonants) + random.choice(vowels)
@@ -187,6 +187,12 @@ def loadData():
     
     global allophones
     allophones = parseDic("allophones.txt")
+
+    global vowels
+    vowels = parseList("vowels.txt")
+
+    global consonants
+    consonants = parseList("consonants.txt")
 
 def main():
         commands = {"add": add,
