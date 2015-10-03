@@ -61,7 +61,7 @@ def outputWord(word, t):
                                 [allophonetic, "", ""]],
                                headers=['Conlang', 'English', 'Features']))
 
-
+''' Returns number of words in database. '''
 def getStatistics():
         return len(db['words'])
         print("Word database contains " + str(len(db['words'])) + " words.")

@@ -73,6 +73,7 @@ def outputWord(word, outputtype):
                         [allophonetic, "", ""]],
                         headers=['Conlang', 'English', 'Extra']))
 
+''' Interface for getStatistics(). '''
 def statistics():
     print("Words: " + str(Library.getStatistics()))
 
