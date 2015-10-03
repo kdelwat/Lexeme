@@ -153,16 +153,15 @@ def decline():
 
         outputWord(word, "onlyconlang")
 
-
-def list():
-        t = input('Enter list type (all/form): ')
+''' Takes type of list (full or specific form) and form. Returns list of
+matching words '''
+def listWords(t, f):
         outList = []
 
         if t == "all":
                 for word in db['words']:
                         outList.append([word['english'], word['word'],  word['form']])
         elif t == "form":
-                f = input("Enter desired form (verb/noun/other): ")
                 if f == "noun":
                         for word in db.query('SELECT * FROM words WHERE form LIKE "noun"'):
                                 outList.append([word['english'], word['word'], word['form']])
@@ -172,8 +171,7 @@ def list():
                 elif f == "other":
                         for word in db.query('SELECT * FROM words WHERE form LIKE "other"'):
                                 outList.append([word['english'], word['word'], word['form']])
-
-        print(tabulate(outList, headers=["English", "Conlang", "Form"]))
+        return outList
 
 ''' Takes three strings for meaning, word in conlang, and part of speech and
 adds word to database '''

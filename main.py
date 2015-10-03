@@ -1,4 +1,6 @@
 import Library
+import IOHelper
+from tabulate import tabulate
 
 ''' Interface for addWord() '''
 def add():
@@ -11,12 +13,27 @@ def add():
     else:
         print("An error occured")
 
+''' Interface for listWords() '''
+def list():
+    t = IOHelper.chooseOption("Enter list type", ["all", "form"])
+
+    if t == "form":
+        pos = ["verb", "noun", "other"]
+
+        f = IOHelper.chooseOption("Enter desired part of speech", pos)
+    else:
+        f = None
+
+    l = Library.listWords(t, f)
+
+    print(tabulate(l, headers=["English", "Conlang", "Form"]))
+
 def quit():
     sys.exit(0)
 
 def main():
         commands = {"add": add,
-                    "list": Library.list,
+                    "list": list,
                     "decline": Library.decline,
                     "query": Library.query,
                     "search": Library.search,
