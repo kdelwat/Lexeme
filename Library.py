@@ -14,8 +14,6 @@ consonants = []
 
 declensions = {}
 
-class WordNotFoundError(RuntimeError):
-    pass
 
 # Transcribe from orthographic representation to phonetic representation
 def transcribePhonemes(word):
@@ -35,30 +33,6 @@ def transcribeAllophones(word):
             word = re.sub(current, new, word)
 
         return word
-
-
-def outputWord(word, t):
-        meaning = word['english']
-        conlang = word['word']
-        phonetic = transcribePhonemes(conlang)
-        allophonetic = transcribeAllophones(phonetic)
-        form = word['form']
-
-        if t == "english":
-                print(tabulate([[meaning, conlang, form],
-                                ["", phonetic, ""],
-                                ["", allophonetic, ""]],
-                               headers=['English', 'Conlang', 'Features']))
-
-        elif t == "onlyconlang":
-                print(tabulate([[conlang], [phonetic], [allophonetic]],
-                      headers=["Conlang"]))
-
-        else:
-                print(tabulate([[conlang, meaning, form],
-                                [phonetic, "",  ""],
-                                [allophonetic, "", ""]],
-                               headers=['Conlang', 'English', 'Features']))
 
 ''' Returns number of words in database. '''
 def getStatistics():
