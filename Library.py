@@ -62,7 +62,8 @@ def outputWord(word, t):
                                headers=['Conlang', 'English', 'Features']))
 
 
-def query():
+def getStatistics():
+        return len(db['words'])
         print("Word database contains " + str(len(db['words'])) + " words.")
 
 

@@ -73,12 +73,14 @@ def outputWord(word, outputtype):
                         [allophonetic, "", ""]],
                         headers=['Conlang', 'English', 'Extra']))
 
+def statistics():
+    print("Words: " + str(Library.getStatistics()))
 
 def main():
         commands = {"add": add,
                     "list": list,
                     "decline": decline,
-                    "query": Library.query,
+                    "statistics": statistics,
                     "search": Library.search,
                     "generate": Library.generate,
                     "quit": quit}
