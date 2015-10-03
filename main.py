@@ -1,5 +1,6 @@
 import Library
 import IOHelper
+import sys
 from tabulate import tabulate
 
 
@@ -133,6 +134,16 @@ def generate():
     print("Wod saved in database!")
 
 
+def loadData(filename):
+    '''Loads data from config file and passes it to Library.'''
+    result = IOHelper.parseConfig(filename)
+    phonemes = result[0]
+    allophones = result[1]
+    declensions = result[2]
+    wordgencats = result[3]
+    print(phonemes, allophones, declensions, wordgencats)
+
+
 def main():
         commands = {"add": add,
                     "list": list,
@@ -149,7 +160,7 @@ def main():
         commandList = commandList[:-2] + "."
         print("Available commands: " + commandList)
 
-        Library.loadData()
+        loadData("config.txt")
 
         command = input("Please enter a command: ")
         while command != "quit":

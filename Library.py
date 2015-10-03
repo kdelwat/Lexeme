@@ -147,10 +147,28 @@ def addWord(meaning, word, form):
     return 0
 
 
+def setPhonemes(l):
+    global phonemes
+    phonemes = l
+
+
+def setAllophones(l):
+    global allophones
+    allophones = l
+
+
+def setCategories(l):
+    global categories
+    categories = l
+
+
+def setDeclensions(l):
+    global declensions
+    declensions = l
+
+
 def loadData():
     '''Loads all language-specific information from file.'''
-    global phonemes
-    phonemes = parseDic("phonemes.txt")
 
     global allophones
     allophones = parseDic("allophones.txt")
