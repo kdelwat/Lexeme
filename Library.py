@@ -91,7 +91,7 @@ def findEnglishWord(term):
     '''Finds the first occurrence of term in English column of database
     and returns as a word.
     '''
-    word = db['words'].find_one(english=english)
+    word = db['words'].find_one(english=term)
 
     if word is None:
         raise LookupError
