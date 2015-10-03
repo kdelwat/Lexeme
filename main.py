@@ -31,10 +31,24 @@ def list():
 def quit():
     sys.exit(0)
 
+def decline():
+    word = input("Enter word (in conlang) to decline: ")
+
+    try:
+        result = Library.findConWord(word)
+    except LookupError:
+        print("Word not found in database")
+        return 1
+
+    print("Select declension:")
+    dec = IOHelper.createMenu(Library.getAvailableDeclensions())
+
+    print(Library.declineWord(result, dec))
+
 def main():
         commands = {"add": add,
                     "list": list,
-                    "decline": Library.decline,
+                    "decline": decline,
                     "query": Library.query,
                     "search": Library.search,
                     "generate": Library.generate,

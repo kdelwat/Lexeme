@@ -15,6 +15,9 @@ consonants = []
 # Declension information
 declensions = {}
 
+class WordNotFoundError(RuntimeError):
+    pass
+
 # Transcribe from orthographic representation to phonetic representation
 def transcribePhonemes(word):
         
@@ -122,32 +125,25 @@ def generate(meaning=None):
         print("Word saved in database!")
 
 
-def decline():
-        conlang = input("Enter verb (in conlang) to conjugate: ")
-        word = db['words'].find_one(word=conlang)
-        
-        if word is None:
-                print("Word does not exist!")
-                conlang = input("Enter verb (in conlang) to conjugate: ")
-                word = db['words'].find_one(word=conlang)
-        
-        decmessage = "Available declensions: "
-        
-        for dec in declensions:
-            decmessage = decmessage + dec + " "
-        
-        print(decmessage)
+def getAvailableDeclensions():
+        return list(declensions)
 
-        d = input("Enter declension: ")
-        while d not in declensions.keys():
-                print("Invalid input. Ensure you are using the shortened code.")
-                atense = input("Enter declension: ")
+
+def declineWord(word, d):
 
         dec = declensions[d].split("->")
         
         word['word'] = re.sub(dec[0], dec[1], word['word'])
 
         outputWord(word, "onlyconlang")
+
+def findConWord(term):
+        word = db['words'].find_one(word=term)
+
+        if word is None:
+            raise LookupError
+        else:
+            return word
 
 ''' Takes type of list (full or specific form) and form. Returns list of
 matching words '''
