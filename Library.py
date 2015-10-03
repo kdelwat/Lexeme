@@ -93,39 +93,6 @@ def generateWord(meaning, form):
         return {'english': meaning, 'word': word, 'form': form}
 
 
-def generate(meaning=None):
-        form = input("Enter word type (noun/verb/other): ")
-        while form not in ["noun", "verb", "other"]:
-                print("Not a valid type!")
-                form = input("Enter word type (noun/verb/other): ")
-
-        if meaning is None:
-                meaning = input("Enter word meaning: ")
-
-        result = db['words'].find_one(english=meaning)
-
-        if result is not None:
-                print("Word already exists!")
-                outputWord(result, "english")
-                return 0
-
-        # generate and display words until acceptance
-        accepted = "n"
-        while accepted != "y":
-
-                # generate words until there are no matches in database
-                word = generateWord(meaning, form)
-                while db['words'].find_one(word=word['word']) is not None:
-                        word = generateWord(meaning, form)
-
-                print(outputWord(word, "english"))
-                accepted = input("Accept word? (y/n): ")
-
-        db['words'].insert(dict(english=word['english'], word=word['word'], form=word['form']))
-
-        print("Word saved in database!")
-
-
 ''' Returns declension list. '''
 def getAvailableDeclensions():
         return list(declensions)
@@ -134,7 +101,7 @@ def getAvailableDeclensions():
 ''' Declines word with declension d. Returns declined word. '''
 def declineWord(word, d):
         dec = declensions[d].split("->")
-        
+
         word['word'] = re.sub(dec[0], dec[1], word['word'])
 
         return word
@@ -148,6 +115,23 @@ def findConWord(term):
             raise LookupError
         else:
             return word
+
+def findEnglishWord(term):
+    word = db['words'].find_one(english=english)
+
+    if word is None:
+        raise LookupError
+    else:
+        return word
+
+def wordExists(term):
+    try:
+        findConWord(term)
+        findEnglishWord(term)
+    except LookupError:
+        return False
+    else:
+        return True
 
 ''' Takes type of list (full or specific form) and form. Returns list of
 matching words '''

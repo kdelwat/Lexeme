@@ -94,13 +94,37 @@ def search():
             outputWord(word, "onlyconlang")
             print("")
 
+''' Generates words until an acceptable option is found, then saves it. '''
+def generate():
+    form = IOHelper.chooseOption("Enter word type", ["noun", "verb", "other"])
+
+    english = input("Enter word in English: ")
+
+    if Library.wordExists(english):
+        print("Word already exists!")
+        w = Library.findEnglishWord(english)
+        outputWord(w, "english")
+        return 1
+
+    accepted = False
+    while accepted != True:
+        word = Library.generateWord(english, form)
+        while Library.wordExists(word['word']):
+            word = Library.generateWord(english, form)
+        outputWord(word, "english")
+        accepted = IOHelper.yesNo("Accept word")
+
+    Library.addWord(word['english'], word['word'], word['form'])
+    print("Wod saved in database!")
+
+
 def main():
         commands = {"add": add,
                     "list": list,
                     "decline": decline,
                     "statistics": statistics,
                     "search": search,
-                    "generate": Library.generate,
+                    "generate": generate,
                     "quit": quit}
         commandList = ""
 
