@@ -9,8 +9,11 @@ from IOHelper import parseDic, parseList
 db = dataset.connect('sqlite:///words.db')
 phonemes = {}
 allophones = {}
-vowels = {}
-consonants = {}
+vowels = []
+consonants = []
+
+# Declension information
+declensions = {}
 
 # Transcribe from orthographic representation to phonetic representation
 def transcribePhonemes(word):
@@ -123,29 +126,30 @@ def quit():
         sys.exit(0)
 
 
-def conjugate():
+def decline():
         conlang = input("Enter verb (in conlang) to conjugate: ")
         word = db['words'].find_one(word=conlang)
+        
         if word is None:
                 print("Word does not exist!")
-                return 0
+                conlang = input("Enter verb (in conlang) to conjugate: ")
+                word = db['words'].find_one(word=conlang)
+        
+        decmessage = "Available declensions: "
+        
+        for dec in declensions:
+            decmessage = decmessage + dec + " "
+        
+        print(decmessage)
 
-        print("Available aspects/tense: progressive (PROG), inchoative (INCH), terminative (TERM), habitual (HAB), prospective (PRSP), delimitative (DLM), future (FUT)")
+        d = input("Enter declension: ")
+        while d not in declensions.keys():
+                print("Invalid input. Ensure you are using the shortened code.")
+                atense = input("Enter declension: ")
 
-        aspects = {"PROG": "ba",
-                   "INCH": "tse",
-                   "TERM": "pő",
-                   "HAB": "ka",
-                   "PRSP":"he",
-                   "DLM": "bő",
-                   "FUT": "ta"}
-
-        atense = input("Enter aspect or tense: ")
-        while atense not in aspects.keys():
-                print("Invalid aspect or tense. Ensure you are using the shortened code.")
-                atense = input("Enter aspect or tense: ")
-
-        word['word'] = word['word'] + aspects[atense]
+        dec = declensions[d].split("->")
+        
+        word['word'] = re.sub(dec[0], dec[1], word['word'])
 
         outputWord(word, "onlyconlang")
 
@@ -194,10 +198,13 @@ def loadData():
     global consonants
     consonants = parseList("consonants.txt")
 
+    global declensions
+    declensions = parseDic("declensions.txt")
+
 def main():
         commands = {"add": add,
                     "list": list,
-                    "conjugate": conjugate,
+                    "decline": decline,
                     "query": query,
                     "search": search,
                     "generate": generate,
