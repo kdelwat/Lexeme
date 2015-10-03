@@ -34,12 +34,11 @@ def outputWord(word, t):
         conlang = word['word']
         phonetic = transcribePhonemes(conlang)
         allophonetic = transcribeAllophones(phonetic)
-        harmony = word['harmony']
         form = word['form']
 
         if t == "english":
                 print(tabulate([[meaning, conlang, form],
-                                ["", phonetic, harmony + " harmony"],
+                                ["", phonetic, ""],
                                 ["", allophonetic, ""]],
                                headers=['English', 'Conlang', 'Features']))
 
@@ -49,7 +48,7 @@ def outputWord(word, t):
 
         else:
                 print(tabulate([[conlang, meaning, form],
-                                [phonetic, "", harmony + " harmony"],
+                                [phonetic, "",  ""],
                                 [allophonetic, "", ""]],
                                headers=['Conlang', 'English', 'Features']))
 
@@ -78,51 +77,12 @@ def search():
 def generateWord(meaning, form):
         word = ""
         consonants = ["p", "b", "t", "ts", "d", "k", "s", "m", "h", "y"]
-        frontvowels = ["a", "e", "ő", "ā", "ē"]
-        backvowels = ["o", "u", "ō"]
+        vowels = ["a", "e", "ő", "ā", "ē",]
 
-        if form == "other":
-                harmony = 3
-                for syllable in range(random.randint(2, 5)):
-                        word += random.choice(consonants) + random.choice(frontvowels+backvowels)
+        for syllable in range(random.randint(2, 5)):
+            word += random.choice(consonants) + random.choice(vowels)
 
-        elif form == "verb":
-                harmony = random.randint(1, 2)
-                if harmony == 1:
-                        vowels = frontvowels
-                else:
-                        vowels = backvowels
-
-                for syllable in range(random.randint(2, 5)):
-                        word += random.choice(consonants) + random.choice(vowels)
-
-        elif form == "noun":
-                harmony = random.randint(1, 2)
-                if harmony == 1:
-                        for syllable in range(random.randint(2, 5)):
-                                if random.randint(1, 5) != 1:
-                                        word += random.choice(consonants) + random.choice(frontvowels)
-                                else:
-                                        word += random.choice(consonants) + random.choice(backvowels)
-                else:
-                    for syllable in range(random.randint(2, 5)):
-                        if random.randint(1, 5) != 1:
-                                        word += random.choice(consonants) + random.choice(backvowels)
-                        else:
-                                        word += random.choice(consonants) + random.choice(frontvowels)
-
-        if harmony == 1:
-                harmonious = "front"
-        elif harmony == 2:
-                harmonious = "back"
-        else:
-                harmonious = "no"
-
-        # final ő changes to e if following another ő
-        if word[-1] == "ő" and word[-3] == "ő":
-                word = word[:-1] + "e"
-
-        return {'english': meaning, 'word': word, 'harmony': harmonious, 'form': form}
+        return {'english': meaning, 'word': word, 'form': form}
 
 
 def generate(meaning=None):
@@ -153,7 +113,7 @@ def generate(meaning=None):
                 print(outputWord(word, "english"))
                 accepted = input("Accept word? (y/n): ")
 
-        db['words'].insert(dict(english=word['english'], word=word['word'], harmony=word['harmony'], form=word['form']))
+        db['words'].insert(dict(english=word['english'], word=word['word'], form=word['form']))
 
         print("Word saved in database!")
 
@@ -171,29 +131,20 @@ def conjugate():
 
         print("Available aspects/tense: progressive (PROG), inchoative (INCH), terminative (TERM), habitual (HAB), prospective (PRSP), delimitative (DLM), future (FUT)")
 
-        aspects = {"PROG": ("ba", "po"),
-                   "INCH": ("tse", "tso"),
-                   "TERM": ("pő", "pō"),
-                   "HAB": ("ka", "bo"),
-                   "PRSP": ("he", "hu"),
-                   "DLM": ("bő", "pu"),
-                   "FUT": ("ta", "tu")}
+        aspects = {"PROG": "ba",
+                   "INCH": "tse",
+                   "TERM": "pő",
+                   "HAB": "ka",
+                   "PRSP":"he",
+                   "DLM": "bő",
+                   "FUT": "ta"}
 
         atense = input("Enter aspect or tense: ")
         while atense not in aspects.keys():
                 print("Invalid aspect or tense. Ensure you are using the shortened code.")
                 atense = input("Enter aspect or tense: ")
 
-        if word['harmony'] == "front":
-                word['word'] = word['word'] + aspects[atense][0]
-        else:
-                word['word'] = word['word'] + aspects[atense][1]
-
-        print("LOL" + word['word'])
-
-        # final ő changes to e if following another ő
-        if word['word'][-1] == "ő" and word['word'][-3] == "ő":
-                word['word'] = word['word'][:-1] + "e"
+        word['word'] = word['word'] + aspects[atense]
 
         outputWord(word, "onlyconlang")
 
@@ -204,29 +155,28 @@ def list():
 
         if t == "all":
                 for word in db['words']:
-                        outList.append([word['english'], word['word'], word['harmony'], word['form']])
+                        outList.append([word['english'], word['word'],  word['form']])
         elif t == "form":
                 f = input("Enter desired form (verb/noun/other): ")
                 if f == "noun":
                         for word in db.query('SELECT * FROM words WHERE form LIKE "noun"'):
-                                outList.append([word['english'], word['word'], word['harmony'], word['form']])
+                                outList.append([word['english'], word['word'], word['form']])
                 elif f == "verb":
                         for word in db.query('SELECT * FROM words WHERE form LIKE "verb"'):
-                                outList.append([word['english'], word['word'], word['harmony'], word['form']])
+                                outList.append([word['english'], word['word'], word['form']])
                 elif f == "other":
                         for word in db.query('SELECT * FROM words WHERE form LIKE "other"'):
-                                outList.append([word['english'], word['word'], word['harmony'], word['form']])
+                                outList.append([word['english'], word['word'], word['form']])
 
-        print(tabulate(outList, headers=["English", "Conlang", "Harmony", "Form"]))
+        print(tabulate(outList, headers=["English", "Conlang", "Form"]))
 
 
 def add():
         meaning = input("Enter meaning in English: ")
         conlang = input("Enter word in conlang: ")
-        harmony = input("Enter harmony (front/back/no): ")
         form = input("Enter part of speech (verb/noun/other): ")
 
-        db['words'].insert(dict(english=meaning, word=conlang, harmony=harmony, form=form))
+        db['words'].insert(dict(english=meaning, word=conlang, form=form))
         print("Word saved in database!")
 
 def main():
