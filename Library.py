@@ -44,16 +44,9 @@ def getStatistics():
     English words and the second with matching conlang words. '''
 def searchWords(term):
         englishresult = db['words'].find(english=term)
-        #if result is not None:
-        #        for word in result:
-        #                outputWord(word, "english")
-        #                print("")
 
         conlangresult = db['words'].find(word=term)
-        #if result is not None:
-        #        for word in result:
-        #                outputWord(word, "onlyconlang")
-        #                print("")
+
         return (list(englishresult), list(conlangresult))
 
 ''' Takes an English string and desired form. Returns a generated word. '''
