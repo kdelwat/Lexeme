@@ -1,0 +1,11 @@
+[TRANSCRIPTION]
+Phonemes = ē:ɛː, ō:ɔː, ā:aː, ts:t͜s, y:j, ő:ø, e:ɛ, o:ɔ
+Allophones = ^p:pʷ, ^b:bʷ, ^t:tʷ
+
+[WORDGEN-CATEGORIES]
+Vowels = a, e, ő, ā, ē
+Consonants = p, b, t, ts, d, k, s, m, h, y
+
+[DECLENSION]
+PROG = $->ba
+INCH = $->tse

@@ -1,3 +1,48 @@
+import configparser
+
+
+def parseConfig(filename):
+    '''Takes path to config file.
+    Returns phonemes, allophones, declension rules and dictionary
+    of word generation categories.
+    '''
+    parser = configparser.ConfigParser()
+    parser.read(filename)
+
+    rawphonemes = convertList(parser["TRANSCRIPTION"]["Phonemes"])
+    phonemes = convertListToDic(rawphonemes)
+    rawallophones = convertList(parser["TRANSCRIPTION"]["Allophones"])
+    allophones = convertListToDic(rawallophones)
+
+    declensions = {}
+    for rule in parser["DECLENSION"]:
+        declensions[rule] = parser["DECLENSION"][rule]
+
+    wordgencategories = {}
+    for cat in parser["WORDGEN-CATEGORIES"]:
+        wordgencategories[cat] = convertList(parser["WORDGEN-CATEGORIES"][cat])
+
+    return (phonemes, allophones, declensions, wordgencategories)
+
+
+def convertList(string):
+    '''Takes a list in string form such as "1, 2, 3" and returns
+    a proper List.
+    '''
+    return string.replace(" ", "").split(",")
+
+
+def convertListToDic(l):
+    '''Takes a list of strings such as "'1:2', 'a:b'" and returns
+    a dictionary.
+    '''
+    d = {}
+    for item in l:
+        isplit = item.split(":")
+        d[isplit[0]] = isplit[1]
+    return d
+
+
 def parseDic(filename):
     '''Takes path to text file structured like so:
             example:8
