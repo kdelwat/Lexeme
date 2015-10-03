@@ -13,3 +13,16 @@ def parseDic(filename):
                 lsplit = l.split(":")
                 d[lsplit[0]] = lsplit[1]
     return d
+
+''' Takes path the text file structured like so:
+        a
+        b
+        another value
+    And returns a dictionary including each item.
+'''
+def parseList(filename):
+    l = []
+    with open(filename, mode="r") as f:
+        for line in f:
+            l.append(line.strip())
+    return l
