@@ -3,8 +3,8 @@ import configparser
 
 def parseConfig(filename):
     '''Takes path to config file.
-    Returns phonemes, allophones, declension rules and dictionary
-    of word generation categories.
+    Returns phonemes, allophones, declension rules, dictionary
+    of word generation categories and word generation settings.
     '''
     parser = configparser.ConfigParser()
     parser.read(filename)
@@ -22,7 +22,23 @@ def parseConfig(filename):
     for cat in parser["WORDGEN-CATEGORIES"]:
         wordgencategories[cat] = convertList(parser["WORDGEN-CATEGORIES"][cat])
 
-    return (phonemes, allophones, declensions, wordgencategories)
+    wordsettings = {}
+    wordsettings["maxS"] = int(parser["WORDGEN-SETTINGS"]["MaxSyllable"])
+    wordsettings["minS"] = int(parser["WORDGEN-SETTINGS"]["MinSyllable"])
+    wordsettings["rule"] = parseSylRule(parser["WORDGEN-SETTINGS"]["Rule"])
+
+    return (phonemes, allophones, declensions, wordgencategories, wordsettings)
+
+
+def parseSylRule(string):
+    cats = string.split("|")
+    rule = []
+    for item in cats:
+        if item[0] is not "(":
+            rule.append(item)
+        else:
+            rule.append([item[1:-1], None])
+    return rule
 
 
 def convertList(string):

@@ -3,6 +3,8 @@ import IOHelper
 import sys
 from tabulate import tabulate
 
+wordgensettings = {}
+
 
 def add():
     '''Interface for addWord().'''
@@ -143,7 +145,10 @@ def loadData(filename):
     allophones = result[1]
     declensions = result[2]
     wordgencats = result[3]
-    print(phonemes, allophones, declensions, wordgencats)
+
+    global wordgensettings
+    wordgensettings = result[4]
+
     Library.setPhonemes(phonemes)
     Library.setAllophones(allophones)
     Library.setCategories(wordgencats)
