@@ -125,18 +125,21 @@ def generate(meaning=None):
         print("Word saved in database!")
 
 
+''' Returns declension list. '''
 def getAvailableDeclensions():
         return list(declensions)
 
 
+''' Declines word with declension d. Returns declined word. '''
 def declineWord(word, d):
-
         dec = declensions[d].split("->")
         
         word['word'] = re.sub(dec[0], dec[1], word['word'])
 
         return word
 
+''' Finds the first occurrence of term in conlang column of database and
+    returns as a word. '''
 def findConWord(term):
         word = db['words'].find_one(word=term)
 

@@ -31,6 +31,8 @@ def list():
 def quit():
     sys.exit(0)
 
+''' Allows user to select word to decline and declension, then outputs the
+    declined word. '''
 def decline():
     word = input("Enter word (in conlang) to decline: ")
 
@@ -47,6 +49,8 @@ def decline():
 
     outputWord(output, "onlyconlang")
 
+''' Outputs word according to output type: english (English first),
+    onlyconlang (No English column), or conlang first. '''
 def outputWord(word, outputtype):
     english = word['english']
     conlang = word['word']
