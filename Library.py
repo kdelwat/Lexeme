@@ -175,7 +175,8 @@ def list():
 
         print(tabulate(outList, headers=["English", "Conlang", "Form"]))
 
-
+''' Takes three strings for meaning, word in conlang, and part of speech and
+adds word to database '''
 def addWord(meaning, word, form):
         db['words'].insert(dict(english=meaning, word=word, form=form))
         return 0

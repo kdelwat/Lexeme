@@ -1,5 +1,6 @@
 import Library
 
+''' Interface for addWord() '''
 def add():
     meaning = input("Enter meaning in English: ")
     word = input("Enter word in conlang: ")
