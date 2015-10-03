@@ -55,3 +55,13 @@ def chooseOption(prompt, options):
         response = input(prompt + olist)
 
     return response
+
+def yesNo(prompt):
+    response = input(prompt + "? (y/n): ")
+    while response not in ["y", "n"]:
+        response = input(prompt + "? (y/n): ")
+
+    if response == "y":
+        return True
+    else:
+        return False
