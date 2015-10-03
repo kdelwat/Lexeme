@@ -12,12 +12,15 @@ def generateWord(meaning, form, categories, settings, formrules=None):
     minS = settings["minS"]
     maxS = settings["maxS"]
     defaultrule = settings["rule"]
-    if form in formrules:
-        rule = formrules[form]
+
+    if formrules is not None:
+        if form in formrules:
+            rule = formrules[form]
+        else:
+            rule = defaultrule
     else:
         rule = defaultrule
 
-    print(rule)
     for syllable in range(random.randint(minS, maxS)):
         word += generateSyllable(categories, rule)
 
