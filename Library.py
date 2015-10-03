@@ -176,13 +176,9 @@ def list():
         print(tabulate(outList, headers=["English", "Conlang", "Form"]))
 
 
-def add():
-        meaning = input("Enter meaning in English: ")
-        conlang = input("Enter word in conlang: ")
-        form = input("Enter part of speech (verb/noun/other): ")
-
-        db['words'].insert(dict(english=meaning, word=conlang, form=form))
-        print("Word saved in database!")
+def addWord(meaning, word, form):
+        db['words'].insert(dict(english=meaning, word=word, form=form))
+        return 0
 
 # Loads all language-specific information from file
 def loadData():
