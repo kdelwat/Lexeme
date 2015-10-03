@@ -1,10 +1,10 @@
-''' Takes path to text file structured like so:
-        example:8
-        anotherexample:āçj
-    And returns a dictionary with the first item of each line as the key and
-    the second as the value.
-'''
 def parseDic(filename):
+    '''Takes path to text file structured like so:
+            example:8
+            anotherexample:āçj
+       And returns a dictionary with the first item of each line as the key and
+       the second as the value.
+    '''
     d = {}
     with open(filename, mode="r") as f:
         for line in f:
@@ -14,22 +14,25 @@ def parseDic(filename):
                 d[lsplit[0]] = lsplit[1]
     return d
 
-''' Takes path the text file structured like so:
-        a
-        b
-        another value
-    And returns a dictionary including each item.
-'''
+
 def parseList(filename):
+    '''Takes path the text file structured like so:
+            a
+            b
+            another value
+       And returns a dictionary including each item.
+    '''
     l = []
     with open(filename, mode="r") as f:
         for line in f:
             l.append(line.strip())
     return l
 
-''' Takes a list of options and a prompt. Creates an input menu. Returns
-    the item selected by the user. '''
+
 def createMenu(prompt, options):
+    '''Takes a list of options and a prompt. Creates an input menu. Returns
+    the item selected by the user.
+    '''
     print(prompt + ":")
     for index, item in enumerate(options):
         bullet = "(" + str(index + 1) + ") "
@@ -41,6 +44,7 @@ def createMenu(prompt, options):
         response = int(input("Enter selection: "))
 
     return options[response - 1]
+
 
 def chooseOption(prompt, options):
     olist = " ("
@@ -55,6 +59,7 @@ def chooseOption(prompt, options):
         response = input(prompt + olist)
 
     return response
+
 
 def yesNo(prompt):
     response = input(prompt + "? (y/n): ")
