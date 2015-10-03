@@ -1,8 +1,6 @@
 import dataset
 import random
-import sys
 import re
-from tabulate import tabulate
 
 from IOHelper import parseDic, parseList
 
@@ -28,6 +26,9 @@ def transcribePhonemes(word):
 
 
 def transcribeAllophones(word):
+    '''Transcribe from phonetic representation to full IPA
+    representation.
+    '''
     word = word[1:-1]
 
     for current, new in allophones.items():
