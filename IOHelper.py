@@ -37,7 +37,12 @@ def parseSylRule(string):
         if item[0] is not "(":
             rule.append(item.lower())
         else:
-            rule.append([item[1:-1].lower(), None])
+            i = item.split(")")
+            templist = [i[0][1:].lower()]
+            freq = int(i[1])
+            for j in range(1, freq):
+                templist.append(None)
+            rule.append(templist)
     return rule
 
 
