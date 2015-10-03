@@ -2,8 +2,9 @@ import Library
 import IOHelper
 from tabulate import tabulate
 
-''' Interface for addWord() '''
+
 def add():
+    '''Interface for addWord().'''
     meaning = input("Enter meaning in English: ")
     word = input("Enter word in conlang: ")
     form = input("Enter part of speech (verb/noun/other): ")
@@ -13,8 +14,9 @@ def add():
     else:
         print("An error occured")
 
-''' Interface for listWords() '''
+
 def list():
+    '''Interface for listWords().'''
     t = IOHelper.chooseOption("Enter list type", ["all", "form"])
 
     if t == "form":
@@ -28,12 +30,15 @@ def list():
 
     print(tabulate(l, headers=["English", "Conlang", "Form"]))
 
+
 def quit():
     sys.exit(0)
 
-''' Allows user to select word to decline and declension, then outputs the
-    declined word. '''
+
 def decline():
+    ''' Allows user to select word to decline and declension, then outputs the
+    declined word.
+    '''
     word = input("Enter word (in conlang) to decline: ")
 
     try:
@@ -42,15 +47,18 @@ def decline():
         print("Word not found in database")
         return 1
 
-    dec = IOHelper.createMenu("Select declension", Library.getAvailableDeclensions())
+    prompt = "Select declension"
+    dec = IOHelper.createMenu(prompt, Library.getAvailableDeclensions())
 
     output = Library.declineWord(result, dec)
 
     outputWord(output, "onlyconlang")
 
-''' Outputs word according to output type: english (English first),
-    onlyconlang (No English column), or conlang first. '''
+
 def outputWord(word, outputtype):
+    '''Outputs word according to output type: english (English first),
+    onlyconlang (No English column), or conlang first.
+    '''
     english = word['english']
     conlang = word['word']
 
@@ -63,22 +71,26 @@ def outputWord(word, outputtype):
         print(tabulate([[english, conlang, form],
                         ["", phonetic, ""],
                         ["", allophonetic, ""]],
-                        headers=['English', 'Conlang', 'Extra']))
+              headers=['English', 'Conlang', 'Extra']))
+
     elif outputtype == "onlyconlang":
         print(tabulate([[conlang], [phonetic], [allophonetic]],
               headers=["Conlang"]))
+
     else:
         print(tabulate([[conlang, english, form],
                         [phonetic, "",  ""],
                         [allophonetic, "", ""]],
-                        headers=['Conlang', 'English', 'Extra']))
+              headers=['Conlang', 'English', 'Extra']))
 
-''' Interface for getStatistics(). '''
+
 def statistics():
+    '''Interface for getStatistics().'''
     print("Words: " + str(Library.getStatistics()))
 
-''' Interface for searchWords(). '''
+
 def search():
+    '''Interface for searchWords().'''
     term = input("Enter search term: ")
 
     results = Library.searchWords(term)
@@ -94,8 +106,11 @@ def search():
             outputWord(word, "onlyconlang")
             print("")
 
-''' Generates words until an acceptable option is found, then saves it. '''
+
 def generate():
+    '''Outputs word according to output type: english (English first),
+    onlyconlang (No English column), or conlang first.
+    '''
     form = IOHelper.chooseOption("Enter word type", ["noun", "verb", "other"])
 
     english = input("Enter word in English: ")
@@ -107,7 +122,7 @@ def generate():
         return 1
 
     accepted = False
-    while accepted != True:
+    while accepted is not True:
         word = Library.generateWord(english, form)
         while Library.wordExists(word['word']):
             word = Library.generateWord(english, form)
