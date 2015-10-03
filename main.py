@@ -128,9 +128,10 @@ def generate():
 
     accepted = False
     while accepted is not True:
-        word = Library.generateWord(english, form, categories)
+        word = Library.generateWord(english, form, categories, wordgensettings)
         while Library.wordExists(word['word']):
-            word = Library.generateWord(english, form, categories)
+            word = Library.generateWord(english, form, categories,
+                                        wordgensettings)
         outputWord(word, "english")
         accepted = IOHelper.yesNo("Accept word")
 

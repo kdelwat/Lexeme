@@ -35,9 +35,9 @@ def parseSylRule(string):
     rule = []
     for item in cats:
         if item[0] is not "(":
-            rule.append(item)
+            rule.append(item.lower())
         else:
-            rule.append([item[1:-1], None])
+            rule.append([item[1:-1].lower(), None])
     return rule
 
 
