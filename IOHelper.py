@@ -27,10 +27,10 @@ def parseList(filename):
             l.append(line.strip())
     return l
 
-''' Takes a list of options and creates an input menu. Returns
-    the item selected by the user '''
-
-def createMenu(options):
+''' Takes a list of options and a prompt. Creates an input menu. Returns
+    the item selected by the user. '''
+def createMenu(prompt, options):
+    print(prompt + ":")
     for index, item in enumerate(options):
         bullet = "(" + str(index + 1) + ") "
         print(bullet + item)

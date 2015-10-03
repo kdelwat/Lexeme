@@ -42,8 +42,7 @@ def decline():
         print("Word not found in database")
         return 1
 
-    print("Select declension:")
-    dec = IOHelper.createMenu(Library.getAvailableDeclensions())
+    dec = IOHelper.createMenu("Select declension", Library.getAvailableDeclensions())
 
     output = Library.declineWord(result, dec)
 
