@@ -7,10 +7,8 @@ from IOHelper import parseDic, parseList
 db = dataset.connect('sqlite:///words.db')
 phonemes = {}
 allophones = {}
-vowels = []
-consonants = []
-
 declensions = {}
+categories = {}
 
 
 def transcribePhonemes(word):
@@ -59,7 +57,8 @@ def generateWord(meaning, form):
     word = ""
 
     for syllable in range(random.randint(2, 5)):
-        word += random.choice(consonants) + random.choice(vowels)
+        word += random.choice(categories["consonants"])
+        word += random.choice(categories["vowels"])
 
     return {'english': meaning, 'word': word, 'form': form}
 

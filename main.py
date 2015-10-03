@@ -142,6 +142,10 @@ def loadData(filename):
     declensions = result[2]
     wordgencats = result[3]
     print(phonemes, allophones, declensions, wordgencats)
+    Library.setPhonemes(phonemes)
+    Library.setAllophones(allophones)
+    Library.setCategories(wordgencats)
+    Library.setDeclensions(declensions)
 
 
 def main():
