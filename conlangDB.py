@@ -180,6 +180,14 @@ def add():
         db['words'].insert(dict(english=meaning, word=conlang, form=form))
         print("Word saved in database!")
 
+# Loads all language-specific information from file
+def loadData():
+    global phonemes
+    phonemes = parseDic("phonemes.txt")
+    
+    global allophones
+    allophones = parseDic("allophones.txt")
+
 def main():
         commands = {"add": add,
                     "list": list,
@@ -196,10 +204,7 @@ def main():
         commandList = commandList[:-2] + "."
         print("Available commands: " + commandList)
 
-        global phonemes
-        phonemes = parseDic("phonemes.txt")
-        global allophones
-        allophones = parseDic("allophones.txt")
+        loadData()
 
         command = input("Please enter a command: ")
         while command != "quit":
