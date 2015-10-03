@@ -45,6 +45,30 @@ def decline():
 
     print(Library.declineWord(result, dec))
 
+def outputWord(word, outputtype):
+    english = word['english']
+    conlang = word['word']
+
+    phonetic = Library.transcribePhonemes(conlang)
+    allophonetic = Library.transcribeAllophones(phonetic)
+
+    form = word['form']
+
+    if outputtype == "english":
+        print(tabulate([[meaning, conlang, form],
+                        ["", phonetic, ""],
+                        ["", allophonetic, ""]],
+                        headers=['English', 'Conlang', 'Extra']))
+    elif outputtype == "onlyconlang":
+        print(tabulate([[conlang], [phonetic], [allophonetic]],
+              headers=["Conlang"]))
+    else:
+        print(tabulate([[conlang, meaning, form],
+                        [phonetic, "",  ""],
+                        [allophonetic, "", ""]],
+                        headers=['Conlang', 'English', 'Extra']))
+
+
 def main():
         commands = {"add": add,
                     "list": list,
