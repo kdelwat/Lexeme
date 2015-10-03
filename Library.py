@@ -67,21 +67,21 @@ def getStatistics():
         print("Word database contains " + str(len(db['words'])) + " words.")
 
 
-def search():
-        term = input("Enter search term: ")
-        print("Results:")
-        print("")
-        result = db['words'].find(english=term)
-        if result is not None:
-                for word in result:
-                        outputWord(word, "english")
-                        print("")
+'''Takes a search term. Returns tuple of two lists, the first populated with matching
+    English words and the second with matching conlang words. '''
+def searchWords(term):
+        englishresult = db['words'].find(english=term)
+        #if result is not None:
+        #        for word in result:
+        #                outputWord(word, "english")
+        #                print("")
 
-        result = db['words'].find(word=term)
-        if result is not None:
-                for word in result:
-                        outputWord(word, "onlyconlang")
-                        print("")
+        conlangresult = db['words'].find(word=term)
+        #if result is not None:
+        #        for word in result:
+        #                outputWord(word, "onlyconlang")
+        #                print("")
+        return (list(englishresult), list(conlangresult))
 
 
 def generateWord(meaning, form):

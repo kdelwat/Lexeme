@@ -60,7 +60,7 @@ def outputWord(word, outputtype):
     form = word['form']
 
     if outputtype == "english":
-        print(tabulate([[meaning, conlang, form],
+        print(tabulate([[english, conlang, form],
                         ["", phonetic, ""],
                         ["", allophonetic, ""]],
                         headers=['English', 'Conlang', 'Extra']))
@@ -68,7 +68,7 @@ def outputWord(word, outputtype):
         print(tabulate([[conlang], [phonetic], [allophonetic]],
               headers=["Conlang"]))
     else:
-        print(tabulate([[conlang, meaning, form],
+        print(tabulate([[conlang, english, form],
                         [phonetic, "",  ""],
                         [allophonetic, "", ""]],
                         headers=['Conlang', 'English', 'Extra']))
@@ -77,12 +77,29 @@ def outputWord(word, outputtype):
 def statistics():
     print("Words: " + str(Library.getStatistics()))
 
+''' Interface for searchWords(). '''
+def search():
+    term = input("Enter search term: ")
+
+    results = Library.searchWords(term)
+
+    if len(results[0]) == 0 and len(results[1]) == 0:
+        print("Word not found")
+    else:
+        for word in results[0]:
+            outputWord(word, "english")
+            print("")
+
+        for word in results[1]:
+            outputWord(word, "onlyconlang")
+            print("")
+
 def main():
         commands = {"add": add,
                     "list": list,
                     "decline": decline,
                     "statistics": statistics,
-                    "search": Library.search,
+                    "search": search,
                     "generate": Library.generate,
                     "quit": quit}
         commandList = ""
