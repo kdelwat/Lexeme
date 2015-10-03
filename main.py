@@ -1,6 +1,8 @@
 import Library
 import IOHelper
+import argparse
 import sys
+
 from tabulate import tabulate
 
 wordgensettings = {}
@@ -111,6 +113,10 @@ def search():
             print("")
 
 
+def quickgenerate():
+    print("Generating using Quickgen...")
+
+
 def generate():
     '''Outputs word according to output type: english (English first),
     onlyconlang (No English column), or conlang first.
@@ -162,27 +168,35 @@ def loadData(filename):
 
 
 def main():
-        commands = {"add": add,
-                    "list": list,
-                    "decline": decline,
-                    "statistics": statistics,
-                    "search": search,
-                    "generate": generate,
-                    "quit": quit}
-        commandList = ""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-g", "--generator", choices=["quickgen", "builtin"],
+                        help="select generator to use")
+    args = parser.parse_args()
 
-        for key, value in commands.items():
-                commandList = commandList + value.__name__ + ", "
+    commands = {"add": add,
+                "list": list,
+                "decline": decline,
+                "statistics": statistics,
+                "search": search,
+                "generate": generate,
+                "quit": quit}
 
-        commandList = commandList[:-2] + "."
-        print("Available commands: " + commandList)
+    if args.generator == "quickgen":
+        commands["generate"] = quickgenerate
 
-        loadData("config.txt")
+    commandList = ""
+    for key in commands.keys():
+        commandList = commandList + key + ", "
 
+    commandList = commandList[:-2] + "."
+    print("Available commands: " + commandList)
+
+    loadData("config.txt")
+
+    command = input("Please enter a command: ")
+    while command != "quit":
+        commands[command]()
         command = input("Please enter a command: ")
-        while command != "quit":
-                commands[command]()
-                command = input("Please enter a command: ")
 
 if __name__ == '__main__':
         main()
