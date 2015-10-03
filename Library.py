@@ -122,10 +122,6 @@ def generate(meaning=None):
         print("Word saved in database!")
 
 
-def quit():
-        sys.exit(0)
-
-
 def decline():
         conlang = input("Enter verb (in conlang) to conjugate: ")
         word = db['words'].find_one(word=conlang)
@@ -195,29 +191,3 @@ def loadData():
 
     global declensions
     declensions = parseDic("declensions.txt")
-
-def main():
-        commands = {"add": add,
-                    "list": list,
-                    "decline": decline,
-                    "query": query,
-                    "search": search,
-                    "generate": generate,
-                    "quit": quit}
-        commandList = ""
-
-        for key, value in commands.items():
-                commandList = commandList + value.__name__ + ", "
-
-        commandList = commandList[:-2] + "."
-        print("Available commands: " + commandList)
-
-        loadData()
-
-        command = input("Please enter a command: ")
-        while command != "quit":
-                commands[command]()
-                command = input("Please enter a command: ")
-
-if __name__ == '__main__':
-        main()
