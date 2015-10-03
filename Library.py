@@ -2,8 +2,6 @@ import dataset
 import random
 import re
 
-from IOHelper import parseDic, parseList
-
 db = dataset.connect('sqlite:///words.db')
 phonemes = {}
 allophones = {}
@@ -164,19 +162,3 @@ def setCategories(l):
 def setDeclensions(l):
     global declensions
     declensions = l
-
-
-def loadData():
-    '''Loads all language-specific information from file.'''
-
-    global allophones
-    allophones = parseDic("allophones.txt")
-
-    global vowels
-    vowels = parseList("vowels.txt")
-
-    global consonants
-    consonants = parseList("consonants.txt")
-
-    global declensions
-    declensions = parseDic("declensions.txt")
