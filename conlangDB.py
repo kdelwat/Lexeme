@@ -26,71 +26,7 @@ def transcribeAllophones(word):
                 sub = {"p": "pʷ", "b": "bʷ", "t": "tʷ"}
                 word = sub[word[0]] + word[1:]
 
-        toned = ""
-        riselevel, droplevel, vowels = 0, 0, 0
-
-        for i, l in enumerate(word):
-                try:
-                        if l in ["a", "ɛ", "ɔ"]:
-                                vowels += 1
-                                if vowels == 1 and word[i+1] == "ː":
-                                        riselevel = 1
-                                        toned += l + "12"
-                                elif riselevel == 1 and word[i+1] == "ː":
-                                        riselevel = 2
-                                        toned += l + "23"
-                                elif riselevel == 2 and word[i+1] == "ː":
-                                        toned += l + "3"
-
-                                elif word[i+1] != "ː":
-                                        riselevel = 0
-                                        droplevel = 0
-                                        toned += l
-
-                                elif vowels != 1 and riselevel == 0 and droplevel == 0 and word[i+1] == "ː":
-                                        droplevel = 1
-                                        toned += l + "32"
-                                elif droplevel == 1 and word[i+1] == "ː":
-                                        droplevel = 2
-                                        toned += l + "21"
-                                elif droplevel == 2 and word[i+1] == "ː":
-                                        toned += l + "1"
-                        elif l == "ː":
-                                toned += ""
-                        else:
-                                toned += l
-                except Exception:
-                        toned += l
-
-        sub = {'ɔ12': 'ɔ́ː',
-               'ɔ23': 'ɔ᷄ː',
-               'ɔ32': 'ɔ̀ː',
-               'ɔ21': 'ɔ᷅ː',
-               'a12': 'áː',
-               'a23': 'a᷄ː',
-               'a32': 'àː',
-               'a21': 'a᷅ː',
-               'ɛ12': 'ɛ́ː',
-               'ɛ23': 'ɛ᷄ː',
-               'ɛ32': 'ɛ̀ː',
-               'ɛ21': 'ɛ᷅ː'}
-
-        for current, new in sub.items():
-                toned = toned.replace(current, new)
-
-        sub = {'ɔ1': 'ɔ̌ː',
-               'ɔ3': 'ɔ̂ː',
-               'a1': 'ǎː',
-               'a3': 'âː',
-               'ɛ1': 'ɛ̌ː',
-               'ɛ3': 'ɛ̂ː'}
-
-        for current, new in sub.items():
-                toned = toned.replace(current, new)
-
-        toned = "[" + toned + "]"
-
-        return toned
+        return word
 
 
 def outputWord(word, t):
