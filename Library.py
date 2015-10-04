@@ -119,6 +119,19 @@ def getFields():
     return fields
 
 
+def getFieldOptions(field):
+    '''Takes a field. Returns all possible options for field that
+    exist within database.
+    '''
+    l = list(db['words'][field])
+    options = []
+
+    for item in l:
+        options.append(item[field])
+
+    return options
+
+
 def listWords(t, f):
     '''Takes type of list (full or specific form) and form. Returns list of
     matching words.
