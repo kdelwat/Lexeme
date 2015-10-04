@@ -62,6 +62,9 @@ def decline():
 
 
 def outputWord(word, first="english"):
+    '''Take word dictionary and optional first column. Output
+    word in a table.
+    '''
     table = [[], [], []]
     headers = []
 
