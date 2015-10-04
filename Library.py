@@ -39,6 +39,13 @@ def getStatistics():
     return len(db['words'])
 
 
+def exportWords(filename):
+    '''Takes filename and outputs csv.'''
+    allWords = db['words'].all()
+    dataset.freeze(allWords, format='csv', filename=filename)
+    print("Exported all words to " + filename)
+
+
 def searchWords(term):
     '''Takes a search term. Returns tuple of two lists, the first
     populated with matching English words and the second with

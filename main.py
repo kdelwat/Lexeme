@@ -167,6 +167,12 @@ def loadData(filename):
     Library.setDeclensions(declensions)
 
 
+def export():
+    '''Interface for exportWords().'''
+    filename = input("Enter filename to export: ")
+    Library.exportWords(filename)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-g", "--generator", choices=["quickgen", "builtin"],
@@ -179,6 +185,7 @@ def main():
                 "statistics": statistics,
                 "search": search,
                 "generate": generate,
+                "export": export,
                 "quit": quit}
 
     if args.generator == "quickgen":
