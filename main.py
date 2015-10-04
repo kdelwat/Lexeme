@@ -58,7 +58,7 @@ def decline():
 
     output = Library.declineWord(result, dec)
 
-    outputWord(output)
+    outputWord(output, "conlang")
 
 
 def outputWord(word, first="english"):
@@ -114,11 +114,11 @@ def search():
         print("Word not found")
     else:
         for word in results[0]:
-            outputWord(word)
+            outputWord(word, "english")
             print("")
 
         for word in results[1]:
-            outputWord(word)
+            outputWord(word, "conlang")
             print("")
 
 
@@ -149,7 +149,7 @@ def generate():
         while Library.wordExists(word['word']):
             word = Library.generateWord(english, form, categories,
                                         wordgensettings, formrules)
-        outputWord(word)
+        outputWord(word, "conlang")
         accepted = IOHelper.yesNo("Accept word")
 
     Library.addWord(word['english'], word['word'], word['form'])
