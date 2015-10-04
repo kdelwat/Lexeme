@@ -58,36 +58,7 @@ def decline():
 
     output = Library.declineWord(result, dec)
 
-    outputWord(output, "onlyconlang")
-
-
-def outputWordOld(word, outputtype):
-    '''Outputs word according to output type: english (English first),
-    onlyconlang (No English column), or conlang first.
-    '''
-    english = word['english']
-    conlang = word['word']
-
-    phonetic = Library.transcribePhonemes(conlang)
-    allophonetic = Library.transcribeAllophones(phonetic)
-
-    form = word['form']
-
-    if outputtype == "english":
-        print(tabulate([[english, conlang, form],
-                        ["", phonetic, ""],
-                        ["", allophonetic, ""]],
-              headers=['English', 'Conlang', 'Extra']))
-
-    elif outputtype == "onlyconlang":
-        print(tabulate([[conlang], [phonetic], [allophonetic]],
-              headers=["Conlang"]))
-
-    else:
-        print(tabulate([[conlang, english, form],
-                        [phonetic, "",  ""],
-                        [allophonetic, "", ""]],
-              headers=['Conlang', 'English', 'Extra']))
+    outputWord(output)
 
 
 def outputWord(word):
@@ -130,11 +101,11 @@ def search():
         print("Word not found")
     else:
         for word in results[0]:
-            outputWord(word, "english")
+            outputWord(word)
             print("")
 
         for word in results[1]:
-            outputWord(word, "onlyconlang")
+            outputWord(word)
             print("")
 
 
@@ -153,7 +124,7 @@ def generate():
     if Library.wordExists(english):
         print("Word already exists!")
         w = Library.findEnglishWord(english)
-        outputWord(w, "english")
+        outputWord(w)
         return 1
 
     categories = Library.getCategories()
@@ -165,7 +136,7 @@ def generate():
         while Library.wordExists(word['word']):
             word = Library.generateWord(english, form, categories,
                                         wordgensettings, formrules)
-        outputWord(word, "english")
+        outputWord(word)
         accepted = IOHelper.yesNo("Accept word")
 
     Library.addWord(word['english'], word['word'], word['form'])
