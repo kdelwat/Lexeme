@@ -61,7 +61,7 @@ def decline():
     outputWord(output, "onlyconlang")
 
 
-def outputWord(word, outputtype):
+def outputWordOld(word, outputtype):
     '''Outputs word according to output type: english (English first),
     onlyconlang (No English column), or conlang first.
     '''
@@ -88,6 +88,31 @@ def outputWord(word, outputtype):
                         [phonetic, "",  ""],
                         [allophonetic, "", ""]],
               headers=['Conlang', 'English', 'Extra']))
+
+
+def outputWord(word):
+    table = [[], [], []]
+    headers = []
+
+    for item in word:
+        if item == "word":
+            table[0].append(word[item])
+
+            phonetic = Library.transcribePhonemes(word[item])
+            allophonetic = Library.transcribeAllophones(phonetic)
+            table[1].append(phonetic)
+            table[2].append(allophonetic)
+
+            headers.append(item.capitalize())
+        elif item == "id":
+            pass
+        else:
+            table[0].append(word[item])
+            table[1].append("")
+            table[2].append("")
+            headers.append(item.capitalize())
+
+    print(tabulate(table, headers=headers))
 
 
 def statistics():
