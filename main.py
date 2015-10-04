@@ -61,23 +61,36 @@ def decline():
     outputWord(output)
 
 
-def outputWord(word):
+def outputWord(word, first="english"):
     table = [[], [], []]
     headers = []
 
+    phonetic = Library.transcribePhonemes(word["word"])
+    allophonetic = Library.transcribeAllophones(phonetic)
+
+    if first == "english":
+        table[0].append(word["english"])
+        table[1].append("")
+        table[2].append("")
+        headers.append("English")
+
+        table[0].append(word["word"])
+        table[1].append(phonetic)
+        table[2].append(allophonetic)
+        headers.append("Conlang")
+    elif first == "conlang":
+        table[0].append(word["word"])
+        table[1].append(phonetic)
+        table[2].append(allophonetic)
+        headers.append("Conlang")
+
+        table[0].append(word["english"])
+        table[1].append("")
+        table[2].append("")
+        headers.append("English")
+
     for item in word:
-        if item == "word":
-            table[0].append(word[item])
-
-            phonetic = Library.transcribePhonemes(word[item])
-            allophonetic = Library.transcribeAllophones(phonetic)
-            table[1].append(phonetic)
-            table[2].append(allophonetic)
-
-            headers.append(item.capitalize())
-        elif item == "id":
-            pass
-        else:
+        if item != "word" and item != "english" and item != "id":
             table[0].append(word[item])
             table[1].append("")
             table[2].append("")
