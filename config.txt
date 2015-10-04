@@ -3,16 +3,15 @@ Phonemes = ē:ɛː, ō:ɔː, ā:aː, ts:t͜s, y:j, ő:ø, e:ɛ, o:ɔ
 Allophones = ^p:pʷ, ^b:bʷ, ^t:tʷ
 
 [WORDGEN-SETTINGS]
-MaxSyllable = 1
+MaxSyllable = 4
 MinSyllable = 1
-Rule = (Consonants)2|Vowels|(Consonants)4
-FormRules = noun:Vowels|Justn, verb:(Consonants)2|Justx
+Rule = Consonants|Vowels
+FormRules = noun:Consonants|Vowels|Justn
 
 [WORDGEN-CATEGORIES]
 Vowels = a, e, ő, ā, ē
 Consonants = p, b, t, ts, d, k, s, m, h, y
 Justn = n
-Justx = x
 
 [DECLENSION]
 PROG = $->ba

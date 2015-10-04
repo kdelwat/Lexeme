@@ -7,7 +7,6 @@ def generateWord(meaning, form, categories, settings, formrules=None):
     Returns a generated word.
     '''
     word = ""
-    print(categories)
 
     minS = settings["minS"]
     maxS = settings["maxS"]

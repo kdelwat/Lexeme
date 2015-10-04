@@ -156,7 +156,7 @@ def generate():
         accepted = IOHelper.yesNo("Accept word")
 
     Library.addWord(word['english'], word['word'], word['form'])
-    print("Wod saved in database!")
+    print("Word saved in database!")
 
 
 def loadData(filename):
