@@ -109,6 +109,16 @@ def wordExists(term):
         return True
 
 
+def getFields():
+    '''Returns list of fields, not including id, english, or word.'''
+    fields = db['words'].columns
+    fields.remove("english")
+    fields.remove("word")
+    fields.remove("id")
+
+    return fields
+
+
 def listWords(t, f):
     '''Takes type of list (full or specific form) and form. Returns list of
     matching words.
