@@ -132,7 +132,7 @@ def getFieldOptions(field):
     return options
 
 
-def listWords(t, f):
+def listWords(t, f=None, o=None):
     '''Takes type of list (full or specific form) and form. Returns list of
     matching words.
     '''
@@ -140,18 +140,12 @@ def listWords(t, f):
 
     if t == "all":
         for word in db['words']:
-            outList.append([word['english'], word['word'],  word['form']])
-    elif t == "form":
-        if f == "noun":
-            for word in db.query('SELECT * FROM words WHERE form LIKE "noun"'):
-                outList.append([word['english'], word['word'], word['form']])
-        elif f == "verb":
-            for word in db.query('SELECT * FROM words WHERE form LIKE "verb"'):
-                outList.append([word['english'], word['word'], word['form']])
-        elif f == "other":
-            q = 'SELECT * FROM words WHERE form LIKE "other"'
-            for word in db.query(q):
-                outList.append([word['english'], word['word'], word['form']])
+            outList.append(word)
+
+    elif t == "field":
+        q = 'SELECT * FROM words WHERE ' + f + ' LIKE "' + o + '"'
+        for word in db.query(q):
+            outList.append(word)
 
     return outList
 

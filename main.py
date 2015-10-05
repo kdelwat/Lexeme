@@ -23,18 +23,22 @@ def add():
 
 def list():
     '''Interface for listWords().'''
-    t = IOHelper.chooseOption("Enter list type", ["all", "form"])
+    t = IOHelper.chooseOption("Enter list type", ["all", "field"])
 
-    if t == "form":
-        pos = ["verb", "noun", "other"]
+    if t == "field":
+        fields = Library.getFields()
 
-        f = IOHelper.chooseOption("Enter desired part of speech", pos)
+        f = IOHelper.chooseOption("Enter desired field", fields)
+
+        options = Library.getFieldOptions(f)
+
+        o = IOHelper.chooseOption("Enter option to list", options)
+
+        l = Library.listWords(t, f, o)
     else:
-        f = None
+        l = Library.listWords(t)
 
-    l = Library.listWords(t, f)
-
-    print(tabulate(l, headers=["English", "Conlang", "Form"]))
+    outputWordList(l)
 
 
 def quit():
@@ -59,6 +63,27 @@ def decline():
     output = Library.declineWord(result, dec)
 
     outputWord(output, "conlang")
+
+
+def outputWordList(wordList):
+    '''Take a list of words. Output list of words in table.'''
+    table = []
+    headers = ["English", "Conlang"]
+
+    for word in wordList:
+        row = []
+        row.append(word["english"])
+        row.append(word["word"])
+        for item in word:
+            if item not in ["english", "word", "id"]:
+                row.append(word[item])
+        table.append(row)
+
+    for item in wordList[0]:
+        if item not in ["english", "word", "id"]:
+            headers.append(item.capitalize())
+
+    print(tabulate(table, headers=headers))
 
 
 def outputWord(word, first="english"):
@@ -93,7 +118,7 @@ def outputWord(word, first="english"):
         headers.append("English")
 
     for item in word:
-        if item != "word" and item != "english" and item != "id":
+        if item not in ["word", "english", "id"]:
             table[0].append(word[item])
             table[1].append("")
             table[2].append("")
