@@ -155,9 +155,7 @@ def quickgenerate():
 
 
 def generate():
-    '''Outputs word according to output type: english (English first),
-    onlyconlang (No English column), or conlang first.
-    '''
+    '''Interface to generateWord().'''
     form = IOHelper.chooseOption("Enter word type", ["noun", "verb", "other"])
 
     english = input("Enter word in English: ")
