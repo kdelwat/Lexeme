@@ -271,10 +271,12 @@ def main():
 
     loadData("config.txt")
 
-    command = input("Please enter a command: ")
-    while command != "quit":
-        commands[command]()
+    while True:
         command = input("Please enter a command: ")
+        if command in commands:
+            commands[command]()
+        else:
+            print("Invalid command")
 
 if __name__ == '__main__':
         main()
