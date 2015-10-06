@@ -150,12 +150,9 @@ def listWords(t, f=None, o=None):
     return outList
 
 
-def addWord(meaning, word, form):
-    '''Takes three strings for meaning, word in conlang, and part of speech and
-    adds word to database.
-    '''
-    db['words'].insert(dict(english=meaning, word=word, form=form))
-    return 0
+def addWord(word):
+    '''Takes word object and adds word to database.'''
+    db['words'].insert(word)
 
 
 def setPhonemes(l):
