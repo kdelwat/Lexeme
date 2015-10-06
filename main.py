@@ -158,13 +158,13 @@ def generate():
     '''Interface to generateWord().'''
     forms = Library.getFieldOptions("form")
     forms.append("other")
-    
+
     form = IOHelper.chooseOption("Enter word form",
-            forms)
-    
+                                 forms)
+
     if form == "other":
         form = input("Enter new word form: ")
-    
+
     english = input("Enter word in English: ")
 
     if Library.wordExists(english):
@@ -185,7 +185,27 @@ def generate():
         outputWord(word, "conlang")
         accepted = IOHelper.yesNo("Accept word")
 
-    Library.addWord(word['english'], word['word'], word['form'])
+    while IOHelper.yesNo("Add custom field"):
+        options = Library.getFields()
+        options.append("other")
+        field = IOHelper.chooseOption("Enter desired field", options)
+        if field == "other":
+            new = input("Enter new field: ")
+            value = input("Enter word value: ")
+            word[new] = value
+        else:
+            values = Library.getFieldOptions(field)
+            values.append("other")
+
+            v = IOHelper.chooseOption("Enter word value",
+                                      values)
+
+            if v == "other":
+                v = input("Enter new word value: ")
+
+            word[field] = v
+
+    Library.addWord(word)
     print("Word saved in database!")
 
 
