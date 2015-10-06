@@ -11,14 +11,23 @@ formrules = {}
 
 def add():
     '''Interface for addWord().'''
-    meaning = input("Enter meaning in English: ")
-    word = input("Enter word in conlang: ")
-    form = input("Enter part of speech (verb/noun/other): ")
+    word = {}
+    word['english'] = input("Enter meaning in English: ")
+    word['word'] = input("Enter word in conlang: ")
 
-    if Library.addWord(meaning, word, form) == 0:
-        print("Word added")
-    else:
-        print("An error occured")
+    forms = Library.getFieldOptions("form")
+    forms.append("other")
+
+    form = IOHelper.chooseOption("Enter word form",
+                                 forms)
+    if form == "other":
+        form = input("Enter new word form: ")
+
+    word['form'] = form
+
+    word = addCustomFields(word)
+    Library.addWord(word)
+    print("Word saved in database!")
 
 
 def list():
@@ -185,6 +194,17 @@ def generate():
         outputWord(word, "conlang")
         accepted = IOHelper.yesNo("Accept word")
 
+    word = addCustomFields(word)
+
+    Library.addWord(word)
+    print("Word saved in database!")
+
+
+def addCustomFields(word):
+    '''Take word and allow user to set custom fields. Return
+    completed word.
+    '''
+
     while IOHelper.yesNo("Add custom field"):
         options = Library.getFields()
         options.append("other")
@@ -204,9 +224,7 @@ def generate():
                 v = input("Enter new word value: ")
 
             word[field] = v
-
-    Library.addWord(word)
-    print("Word saved in database!")
+    return word
 
 
 def loadData(filename):
