@@ -223,7 +223,7 @@ def addCustomFields(word):
     return word
 
 
-def loadData(filename):
+def loadData(filename="config.txt"):
     '''Loads data from config file and passes it to Library.'''
     result = IOHelper.parseConfig(filename)
     phonemes = result[0]
@@ -252,12 +252,18 @@ def export():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--database", help="set database file")
+    parser.add_argument("--config", help="set configuration file")
     args = parser.parse_args()
 
     if args.database is not None:
         Library.loadDatabase(args.database)
     else:
         Library.loadDatabase()
+
+    if args.config is not None:
+        loadData(args.config)
+    else:
+        loadData()
 
     commands = {"add": add,
                 "list": list,
@@ -274,8 +280,6 @@ def main():
 
     commandList = commandList[:-2] + "."
     print("Available commands: " + commandList)
-
-    loadData("config.txt")
 
     while True:
         command = input("Please enter a command: ")
