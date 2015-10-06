@@ -11,30 +11,43 @@ formrules = {}
 
 def add():
     '''Interface for addWord().'''
-    meaning = input("Enter meaning in English: ")
-    word = input("Enter word in conlang: ")
-    form = input("Enter part of speech (verb/noun/other): ")
+    word = {}
+    word['english'] = input("Enter meaning in English: ")
+    word['word'] = input("Enter word in conlang: ")
 
-    if Library.addWord(meaning, word, form) == 0:
-        print("Word added")
-    else:
-        print("An error occured")
+    forms = Library.getFieldOptions("form")
+    forms.append("other")
+
+    form = IOHelper.chooseOption("Enter word form",
+                                 forms)
+    if form == "other":
+        form = input("Enter new word form: ")
+
+    word['form'] = form
+
+    word = addCustomFields(word)
+    Library.addWord(word)
+    print("Word saved in database!")
 
 
 def list():
     '''Interface for listWords().'''
-    t = IOHelper.chooseOption("Enter list type", ["all", "form"])
+    t = IOHelper.chooseOption("Enter list type", ["all", "field"])
 
-    if t == "form":
-        pos = ["verb", "noun", "other"]
+    if t == "field":
+        fields = Library.getFields()
 
-        f = IOHelper.chooseOption("Enter desired part of speech", pos)
+        f = IOHelper.chooseOption("Enter desired field", fields)
+
+        options = Library.getFieldOptions(f)
+
+        o = IOHelper.chooseOption("Enter option to list", options)
+
+        l = Library.listWords(t, f, o)
     else:
-        f = None
+        l = Library.listWords(t)
 
-    l = Library.listWords(t, f)
-
-    print(tabulate(l, headers=["English", "Conlang", "Form"]))
+    outputWordList(l)
 
 
 def quit():
@@ -59,6 +72,27 @@ def decline():
     output = Library.declineWord(result, dec)
 
     outputWord(output, "conlang")
+
+
+def outputWordList(wordList):
+    '''Take a list of words. Output list of words in table.'''
+    table = []
+    headers = ["English", "Conlang"]
+
+    for word in wordList:
+        row = []
+        row.append(word["english"])
+        row.append(word["word"])
+        for item in word:
+            if item not in ["english", "word", "id"]:
+                row.append(word[item])
+        table.append(row)
+
+    for item in wordList[0]:
+        if item not in ["english", "word", "id"]:
+            headers.append(item.capitalize())
+
+    print(tabulate(table, headers=headers))
 
 
 def outputWord(word, first="english"):
@@ -93,7 +127,7 @@ def outputWord(word, first="english"):
         headers.append("English")
 
     for item in word:
-        if item != "word" and item != "english" and item != "id":
+        if item not in ["word", "english", "id"]:
             table[0].append(word[item])
             table[1].append("")
             table[2].append("")
@@ -126,10 +160,15 @@ def search():
 
 
 def generate():
-    '''Outputs word according to output type: english (English first),
-    onlyconlang (No English column), or conlang first.
-    '''
-    form = IOHelper.chooseOption("Enter word type", ["noun", "verb", "other"])
+    '''Interface to generateWord().'''
+    forms = Library.getFieldOptions("form")
+    forms.append("other")
+
+    form = IOHelper.chooseOption("Enter word form",
+                                 forms)
+
+    if form == "other":
+        form = input("Enter new word form: ")
 
     english = input("Enter word in English: ")
 
@@ -151,8 +190,37 @@ def generate():
         outputWord(word, "conlang")
         accepted = IOHelper.yesNo("Accept word")
 
-    Library.addWord(word['english'], word['word'], word['form'])
+    word = addCustomFields(word)
+
+    Library.addWord(word)
     print("Word saved in database!")
+
+
+def addCustomFields(word):
+    '''Take word and allow user to set custom fields. Return
+    completed word.
+    '''
+
+    while IOHelper.yesNo("Add custom field"):
+        options = Library.getFields()
+        options.append("other")
+        field = IOHelper.chooseOption("Enter desired field", options)
+        if field == "other":
+            new = input("Enter new field: ")
+            value = input("Enter word value: ")
+            word[new] = value
+        else:
+            values = Library.getFieldOptions(field)
+            values.append("other")
+
+            v = IOHelper.chooseOption("Enter word value",
+                                      values)
+
+            if v == "other":
+                v = input("Enter new word value: ")
+
+            word[field] = v
+    return word
 
 
 def loadData(filename):

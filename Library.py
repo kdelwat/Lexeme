@@ -109,7 +109,33 @@ def wordExists(term):
         return True
 
 
-def listWords(t, f):
+def getFields():
+    '''Returns list of fields, not including id, english, or word.'''
+    fields = db['words'].columns
+    fields.remove("english")
+    fields.remove("word")
+    fields.remove("id")
+
+    return fields
+
+
+def getFieldOptions(field):
+    '''Takes a field. Returns all possible options for field that
+    exist within database.
+    '''
+    l = list(db['words'][field])
+    options = []
+
+    for item in l:
+        options.append(item[field])
+
+    if None in options:
+        options.remove(None)
+
+    return options
+
+
+def listWords(t, f=None, o=None):
     '''Takes type of list (full or specific form) and form. Returns list of
     matching words.
     '''
@@ -117,28 +143,19 @@ def listWords(t, f):
 
     if t == "all":
         for word in db['words']:
-            outList.append([word['english'], word['word'],  word['form']])
-    elif t == "form":
-        if f == "noun":
-            for word in db.query('SELECT * FROM words WHERE form LIKE "noun"'):
-                outList.append([word['english'], word['word'], word['form']])
-        elif f == "verb":
-            for word in db.query('SELECT * FROM words WHERE form LIKE "verb"'):
-                outList.append([word['english'], word['word'], word['form']])
-        elif f == "other":
-            q = 'SELECT * FROM words WHERE form LIKE "other"'
-            for word in db.query(q):
-                outList.append([word['english'], word['word'], word['form']])
+            outList.append(word)
+
+    elif t == "field":
+        q = 'SELECT * FROM words WHERE ' + f + ' LIKE "' + o + '"'
+        for word in db.query(q):
+            outList.append(word)
 
     return outList
 
 
-def addWord(meaning, word, form):
-    '''Takes three strings for meaning, word in conlang, and part of speech and
-    adds word to database.
-    '''
-    db['words'].insert(dict(english=meaning, word=word, form=form))
-    return 0
+def addWord(word):
+    '''Takes word object and adds word to database.'''
+    db['words'].insert(word)
 
 
 def setPhonemes(l):
