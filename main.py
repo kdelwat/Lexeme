@@ -156,8 +156,15 @@ def quickgenerate():
 
 def generate():
     '''Interface to generateWord().'''
-    form = IOHelper.chooseOption("Enter word type", ["noun", "verb", "other"])
-
+    forms = Library.getFieldOptions("form")
+    forms.append("other")
+    
+    form = IOHelper.chooseOption("Enter word form",
+            forms)
+    
+    if form == "other":
+        form = input("Enter new word form: ")
+    
     english = input("Enter word in English: ")
 
     if Library.wordExists(english):
