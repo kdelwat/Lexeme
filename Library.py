@@ -129,7 +129,8 @@ def getFieldOptions(field):
     for item in l:
         options.append(item[field])
 
-    options.remove(None)
+    if None in options:
+        options.remove(None)
 
     return options
 
