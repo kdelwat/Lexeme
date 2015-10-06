@@ -125,10 +125,6 @@ def search():
             print("")
 
 
-def quickgenerate():
-    print("Generating using Quickgen...")
-
-
 def generate():
     '''Outputs word according to output type: english (English first),
     onlyconlang (No English column), or conlang first.
@@ -187,8 +183,6 @@ def export():
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-g", "--generator", choices=["quickgen", "builtin"],
-                        help="select generator to use")
     args = parser.parse_args()
 
     commands = {"add": add,
@@ -199,9 +193,6 @@ def main():
                 "generate": generate,
                 "export": export,
                 "quit": quit}
-
-    if args.generator == "quickgen":
-        commands["generate"] = quickgenerate
 
     commandList = ""
     for key in commands.keys():
