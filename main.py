@@ -251,7 +251,13 @@ def export():
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument("--database", help="set database file")
     args = parser.parse_args()
+
+    if args.database is not None:
+        Library.loadDatabase(args.database)
+    else:
+        Library.loadDatabase()
 
     commands = {"add": add,
                 "list": list,
