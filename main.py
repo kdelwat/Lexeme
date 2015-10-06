@@ -47,7 +47,10 @@ def list():
     else:
         l = Library.listWords(t)
 
-    outputWordList(l)
+    if len(l) > 0:
+        outputWordList(l)
+    else:
+        print("No words to display")
 
 
 def quit():
