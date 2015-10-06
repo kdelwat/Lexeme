@@ -225,7 +225,12 @@ def addCustomFields(word):
 
 def loadData(filename="config.txt"):
     '''Loads data from config file and passes it to Library.'''
-    result = IOHelper.parseConfig(filename)
+    try:
+        result = IOHelper.parseConfig(filename)
+    except KeyError:
+        print("Config file is malformed or does not exist")
+        quit()
+
     phonemes = result[0]
     allophones = result[1]
     declensions = result[2]
@@ -242,6 +247,8 @@ def loadData(filename="config.txt"):
     Library.setCategories(wordgencats)
     Library.setDeclensions(declensions)
 
+    return 0
+
 
 def export():
     '''Interface for exportWords().'''
@@ -257,6 +264,7 @@ def main():
 
     if args.database is not None:
         Library.loadDatabase(args.database)
+    
     else:
         Library.loadDatabase()
 
