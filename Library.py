@@ -3,7 +3,7 @@ import re
 
 from Generator import generateWord
 
-db = dataset.connect('sqlite:///words.db')
+db = None
 phonemes = {}
 allophones = {}
 declensions = {}
@@ -181,3 +181,10 @@ def getCategories():
 def setDeclensions(l):
     global declensions
     declensions = l
+
+
+def loadDatabase(filename="words.db"):
+    global db
+
+    location = "sqlite:///" + filename
+    db = dataset.connect(location)
