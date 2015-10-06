@@ -31,6 +31,7 @@ def transcribeAllophones(word):
     for current, new in allophones.items():
         word = re.sub(current, new, word)
 
+    word = "[" + word + "]"
     return word
 
 
