@@ -49,7 +49,6 @@ def applyPhonotactics(word, phonotactics):
     '''Takes dictionary of phonotactics rules and a word. Returns
     word with all rules applied.'''
     for name, rule in phonotactics.items():
-        print("Applying rule: " + name)
         r = rule.split("->")
         word = re.sub(r[0], r[1], word)
     return word

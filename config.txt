@@ -9,7 +9,7 @@ Rule = Consonants|Vowels
 FormRules = noun:Consonants|Vowels|Justn
 
 [PHONOTACTICS]
-ō$->oiouoouadouads
+LastOToFuntimes = ō$->oiouoouadouads
 
 [WORDGEN-CATEGORIES]
 Vowels = ő, ō
