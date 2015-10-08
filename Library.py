@@ -8,6 +8,7 @@ phonemes = {}
 allophones = {}
 declensions = {}
 categories = {}
+phonotactics = {}
 
 
 def transcribePhonemes(word):
@@ -180,3 +181,8 @@ def getCategories():
 def setDeclensions(l):
     global declensions
     declensions = l
+
+
+def setPhonotactics(l):
+    global phonotactics
+    phonotactics = l

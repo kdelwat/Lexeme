@@ -230,6 +230,7 @@ def loadData(filename):
     allophones = result[1]
     declensions = result[2]
     wordgencats = result[3]
+    phonotactics = result[6]
 
     global wordgensettings
     wordgensettings = result[4]
@@ -241,6 +242,7 @@ def loadData(filename):
     Library.setAllophones(allophones)
     Library.setCategories(wordgencats)
     Library.setDeclensions(declensions)
+    Library.setPhonotactics(phonotactics)
 
 
 def export():
