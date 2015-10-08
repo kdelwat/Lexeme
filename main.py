@@ -7,6 +7,7 @@ from tabulate import tabulate
 
 wordgensettings = {}
 formrules = {}
+phonotactics = {}
 
 
 def add():
@@ -230,7 +231,7 @@ def loadData(filename):
     allophones = result[1]
     declensions = result[2]
     wordgencats = result[3]
-    phonotactics = result[6]
+    phonorules = result[6]
 
     global wordgensettings
     wordgensettings = result[4]
@@ -238,11 +239,13 @@ def loadData(filename):
     global formrules
     formrules = result[5]
 
+    global phonotactics
+    phonotactics = phonorules
+
     Library.setPhonemes(phonemes)
     Library.setAllophones(allophones)
     Library.setCategories(wordgencats)
     Library.setDeclensions(declensions)
-    Library.setPhonotactics(phonotactics)
 
 
 def export():
