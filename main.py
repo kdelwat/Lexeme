@@ -184,10 +184,11 @@ def generate():
     accepted = False
     while accepted is not True:
         word = Library.generateWord(english, form, categories, wordgensettings,
-                                    formrules)
+                                    phonotactics, formrules)
         while Library.wordExists(word['word']):
             word = Library.generateWord(english, form, categories,
-                                        wordgensettings, formrules)
+                                        wordgensettings, phonotactics,
+                                        formrules)
         outputWord(word, "conlang")
         accepted = IOHelper.yesNo("Accept word")
 
