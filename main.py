@@ -273,7 +273,7 @@ def main():
 
     if args.database is not None:
         Library.loadDatabase(args.database)
-    
+
     else:
         Library.loadDatabase()
 
