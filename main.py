@@ -7,6 +7,7 @@ from tabulate import tabulate
 
 wordgensettings = {}
 formrules = {}
+phonotactics = {}
 
 
 def add():
@@ -186,10 +187,11 @@ def generate():
     accepted = False
     while accepted is not True:
         word = Library.generateWord(english, form, categories, wordgensettings,
-                                    formrules)
+                                    phonotactics, formrules)
         while Library.wordExists(word['word']):
             word = Library.generateWord(english, form, categories,
-                                        wordgensettings, formrules)
+                                        wordgensettings, phonotactics,
+                                        formrules)
         outputWord(word, "conlang")
         accepted = IOHelper.yesNo("Accept word")
 
@@ -238,12 +240,16 @@ def loadData(filename="config.txt"):
     allophones = result[1]
     declensions = result[2]
     wordgencats = result[3]
+    phonorules = result[6]
 
     global wordgensettings
     wordgensettings = result[4]
 
     global formrules
     formrules = result[5]
+
+    global phonotactics
+    phonotactics = phonorules
 
     Library.setPhonemes(phonemes)
     Library.setAllophones(allophones)

@@ -8,8 +8,11 @@ MinSyllable = 1
 Rule = Consonants|Vowels
 FormRules = noun:Consonants|Vowels|Justn
 
+[PHONOTACTICS]
+LastOToFuntimes = ō$->oiouoouadouads
+
 [WORDGEN-CATEGORIES]
-Vowels = a, e, ő, ā, ē
+Vowels = ő, ō
 Consonants = p, b, t, ts, d, k, s, m, h, y
 Justn = n
 
