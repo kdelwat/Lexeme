@@ -178,6 +178,15 @@ def batchgenerate():
 
 def generate(english=None):
     '''Interface to generateWord().'''
+    if english is None:
+        english = input("Enter word in English: ")
+
+    if Library.wordExists(english=english):
+        print("Word already exists!")
+        w = Library.findEnglishWord(english)
+        outputWord(w)
+        return 1
+
     forms = Library.getFieldOptions("form")
     forms.append("other")
 
@@ -186,15 +195,6 @@ def generate(english=None):
 
     if form == "other":
         form = input("Enter new word form: ")
-
-    if english is None:
-        english = input("Enter word in English: ")
-
-    if Library.wordExists(english):
-        print("Word already exists!")
-        w = Library.findEnglishWord(english)
-        outputWord(w)
-        return 1
 
     categories = Library.getCategories()
 
