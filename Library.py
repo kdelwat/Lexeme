@@ -79,10 +79,7 @@ def findConWord(term):
     '''
     word = db['words'].find_one(word=term)
 
-    if word is None:
-        raise LookupError
-    else:
-        return word
+    return word
 
 
 def findEnglishWord(term):
@@ -91,23 +88,21 @@ def findEnglishWord(term):
     '''
     word = db['words'].find_one(english=term)
 
-    if word is None:
-        raise LookupError
-    else:
-        return word
+    return word
 
 
-def wordExists(term):
+def wordExists(english=None, conlang=None):
     '''Accepts string and searches for it in conlang words list and English words
     list. If word exists in database, returns True, otherwise returns False.
     '''
-    try:
-        findConWord(term)
-        findEnglishWord(term)
-    except LookupError:
-        return False
-    else:
-        return True
+    if conlang is not None:
+        if findConWord(conlang) is not None:
+            return True
+    if english is not None:
+        if findEnglishWord(english) is not None:
+            return True
+
+    return False
 
 
 def getFields():
