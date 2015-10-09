@@ -1,5 +1,5 @@
 #Lexeme
-Lexeme is a command-line constructed language word database, generation, and declension program. Contributions are very welcome: see CONTRIBUTING.md.
+Lexeme is a command-line constructed language word database, generation, and declension program. Contributions are very welcome: see (CONTRIBUTING.md).
 
 ##Features
 + Words are saved in a searchable, filterable SQLite database.
