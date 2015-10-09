@@ -202,7 +202,7 @@ def generate(english=None):
     while accepted is not True:
         word = Library.generateWord(english, form, categories, wordgensettings,
                                     phonotactics, formrules)
-        while Library.wordExists(word['word']):
+        while Library.wordExists(conlang=word['word']):
             word = Library.generateWord(english, form, categories,
                                         wordgensettings, phonotactics,
                                         formrules)
