@@ -4,8 +4,8 @@ from Interface import *
 
 
 class Lexeme(cmd.Cmd):
-    intro = "Welcome to Lexeme. Input ? for help and commands"
-    prompt = "(lexeme) "
+    intro = "Welcome to Lexeme! Input '?' for help and commands."
+    prompt = "Enter command: "
 
     def do_list(self, arg):
         'List word database.'
