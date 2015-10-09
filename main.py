@@ -96,7 +96,9 @@ def outputWordList(wordList):
         if item not in ["english", "word", "id"]:
             headers.append(item.capitalize())
 
+    print("")
     print(tabulate(table, headers=headers))
+    print("")
 
 
 def outputWord(word, first="english"):
@@ -137,7 +139,9 @@ def outputWord(word, first="english"):
             table[2].append("")
             headers.append(item.capitalize())
 
+    print("")
     print(tabulate(table, headers=headers))
+    print("")
 
 
 def statistics():
