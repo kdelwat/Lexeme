@@ -171,7 +171,9 @@ def batchgenerate():
     filename = input("Enter location of words file: ")
     with open(filename, "r") as f:
         for word in f:
+            print("Generating word " + word.strip() + "...")
             generate(word.strip())
+    print("Finished batch generation!")
 
 
 def generate(english=None):
