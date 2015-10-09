@@ -1,4 +1,5 @@
 import cmd
+import argparse
 from Interface import *
 
 
@@ -25,10 +26,10 @@ class Lexeme(cmd.Cmd):
     def do_search(self, arg):
         search()
 
-    def do_generate():
+    def do_generate(self, arg):
         generate()
 
-    def do_export():
+    def do_export(self, arg):
         export()
 
 
