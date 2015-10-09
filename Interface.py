@@ -166,6 +166,14 @@ def search():
             print("")
 
 
+def batchgenerate():
+    '''Run each word in file through generate.'''
+    filename = input("Enter location of words file: ")
+    with open(filename, "r") as f:
+        for word in f:
+            generate(word.strip())
+
+
 def generate():
     '''Interface to generateWord().'''
     forms = Library.getFieldOptions("form")
