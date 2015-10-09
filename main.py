@@ -32,6 +32,8 @@ class Lexeme(cmd.Cmd):
     def do_export(self, arg):
         export()
 
+    def do_batch(self, arg):
+        batchgenerate()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
