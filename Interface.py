@@ -1,6 +1,5 @@
 import Library
 import IOHelper
-import argparse
 import sys
 
 from tabulate import tabulate
@@ -31,7 +30,7 @@ def add():
     print("Word saved in database!")
 
 
-def list():
+def listwords():
     '''Interface for listWords().'''
     t = IOHelper.chooseOption("Enter list type", ["all", "field"])
 
@@ -267,47 +266,3 @@ def export():
     '''Interface for exportWords().'''
     filename = input("Enter filename to export: ")
     Library.exportWords(filename)
-
-
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--database", help="set database file")
-    parser.add_argument("--config", help="set configuration file")
-    args = parser.parse_args()
-
-    if args.database is not None:
-        Library.loadDatabase(args.database)
-
-    else:
-        Library.loadDatabase()
-
-    if args.config is not None:
-        loadData(args.config)
-    else:
-        loadData()
-
-    commands = {"add": add,
-                "list": list,
-                "decline": decline,
-                "statistics": statistics,
-                "search": search,
-                "generate": generate,
-                "export": export,
-                "quit": quit}
-
-    commandList = ""
-    for key in commands.keys():
-        commandList = commandList + key + ", "
-
-    commandList = commandList[:-2] + "."
-    print("Available commands: " + commandList)
-
-    while True:
-        command = input("Please enter a command: ")
-        if command in commands:
-            commands[command]()
-        else:
-            print("Invalid command")
-
-if __name__ == '__main__':
-        main()
