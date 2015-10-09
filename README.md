@@ -14,3 +14,26 @@ Lexeme is a command-line constructed language word database, generation, and dec
 ##Installation
 To be honest, who knows?
 
+##Usage
+###Running
+Run Lexeme from the commandline with `python main.py`. For a list of command-line options, including the ability to set custom database and configuration files, use `python main.py -h`.
+
+###Configuration
+The default location for the configuration file is `config.txt`. The comments in example file should help to customise the rules to suit other conlangs.
+
+###Generate
+The `generate` command is used to create a new word using rules in the configuration.
+
+	Please enter a command: generate
+	Enter word form (adjective/adverb/noun/verb/other): noun
+	Enter word in English: t-shirt
+
+	Conlang       English    Form
+	------------  ---------  ------
+	kōnbőnkőn     t-shirt    noun
+	/kɔːnbønkøn/
+	[kɔːnbønkøn]
+
+	Accept word? (y/n): y
+	Add custom field? (y/n): n
+	Word saved in database!
