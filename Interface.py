@@ -169,10 +169,15 @@ def search():
 def batchgenerate():
     '''Run each word in file through generate.'''
     filename = input("Enter location of words file: ")
-    with open(filename, "r") as f:
-        for word in f:
-            print("Generating word " + word.strip() + "...")
-            generate(word.strip())
+    try:
+        with open(filename, "r") as f:
+            for word in f:
+                print("Generating word " + word.strip() + "...")
+                generate(word.strip())
+    except FileNotFoundError:
+        print("File not found! Double-check the path you are using.")
+        return 1
+
     print("Finished batch generation!")
 
 
