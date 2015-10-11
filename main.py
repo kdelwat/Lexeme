@@ -5,34 +5,41 @@ from Interface import *
 
 class Lexeme(cmd.Cmd):
     intro = "Welcome to Lexeme! Input '?' for help and commands."
-    prompt = "Enter command: "
+    prompt = "\nEnter command: "
 
     def do_list(self, arg):
-        'List word database.'
+        clearScreen()
         listwords()
 
     def do_quit(self, arg):
         quit()
 
     def do_add(self, arg):
+        clearScreen()
         add()
 
     def do_decline(self, arg):
+        clearScreen()
         decline()
 
     def do_statistics(self, arg):
+        clearScreen()
         statistics()
 
     def do_search(self, arg):
+        clearScreen()
         search()
 
     def do_generate(self, arg):
+        clearScreen()
         generate()
 
     def do_export(self, arg):
+        clearScreen()
         export()
 
     def do_batch(self, arg):
+        clearScreen()
         batchgenerate()
 
 if __name__ == "__main__":
