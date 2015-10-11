@@ -1,6 +1,7 @@
 import Library
 import IOHelper
 import sys
+import os
 
 from tabulate import tabulate
 
@@ -98,6 +99,10 @@ def outputWordList(wordList):
     print("")
     print(tabulate(table, headers=headers))
     print("")
+
+
+def clearScreen():
+    os.system("cls" if os.name == "nt" else "clear")
 
 
 def outputWord(word, first="english"):
