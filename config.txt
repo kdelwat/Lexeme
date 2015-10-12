@@ -9,11 +9,11 @@ Rule = Consonants|Vowels
 FormRules = noun:Consonants|Vowels|Justn
 
 [PHONOTACTICS]
-LastOToFuntimes = ō$->oiouoouadouads
+LastOToFuntimes = ő$->e
 
 [WORDGEN-CATEGORIES]
-Vowels = ő, ō
-Consonants = p, b, t, ts, d, k, s, m, h, y
+Vowels = ő, e, ē, a, ā, o, u, ō
+Consonants = p, b, t, ts, k, s, m, n, y
 Justn = n
 
 [DECLENSION]
