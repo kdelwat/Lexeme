@@ -1,12 +1,15 @@
 import Library
 import IOHelper
 import sys
-
+import os
+from pyfiglet import Figlet
 from tabulate import tabulate
 
 wordgensettings = {}
 formrules = {}
 phonotactics = {}
+
+fig = Figlet(font="slant")
 
 
 def add():
@@ -100,6 +103,11 @@ def outputWordList(wordList):
     print("")
 
 
+def clearScreen():
+    os.system("cls" if os.name == "nt" else "clear")
+    print(fig.renderText("Lexeme"))
+
+
 def outputWord(word, first="english"):
     '''Take word dictionary and optional first column. Output
     word in a table.
@@ -172,8 +180,10 @@ def batchgenerate():
     try:
         with open(filename, "r") as f:
             for word in f:
+                clearScreen()
                 print("Generating word " + word.strip() + "...")
                 generate(word.strip())
+                input("Press enter to continue...")
     except FileNotFoundError:
         print("File not found! Double-check the path you are using.")
         return 1
@@ -211,6 +221,7 @@ def generate(english=None):
             word = Library.generateWord(english, form, categories,
                                         wordgensettings, phonotactics,
                                         formrules)
+        clearScreen()
         outputWord(word, "conlang")
         accepted = IOHelper.yesNo("Accept word")
 
