@@ -2,7 +2,7 @@ import Library
 import IOHelper
 import sys
 import os
-from pyfiglet import Figlet 
+from pyfiglet import Figlet
 from tabulate import tabulate
 
 wordgensettings = {}
@@ -10,6 +10,7 @@ formrules = {}
 phonotactics = {}
 
 fig = Figlet(font="slant")
+
 
 def add():
     '''Interface for addWord().'''
@@ -179,8 +180,10 @@ def batchgenerate():
     try:
         with open(filename, "r") as f:
             for word in f:
+                clearScreen()
                 print("Generating word " + word.strip() + "...")
                 generate(word.strip())
+                input("Press enter to continue...")
     except FileNotFoundError:
         print("File not found! Double-check the path you are using.")
         return 1
@@ -218,6 +221,7 @@ def generate(english=None):
             word = Library.generateWord(english, form, categories,
                                         wordgensettings, phonotactics,
                                         formrules)
+        clearScreen()
         outputWord(word, "conlang")
         accepted = IOHelper.yesNo("Accept word")
 
