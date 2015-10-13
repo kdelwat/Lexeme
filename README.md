@@ -105,6 +105,25 @@ effect adding a suffix. Through specifying these rules using regular
 expressions, suffixes, prefixes, and infixes can all be easily handled by
 Lexeme.
 
+####Import
+The `import` command imports a csv file into the current database. The csv
+format should look something like this:
+
+    id,word,english,form,gender,modality,dissonance
+    1,en,dog,noun,,,
+    7,hőnyőnhān,weekend,noun,,,
+    9,yőntsēnsen,eye,noun,,,
+    12,tākēsapa,poor,adjective,,,
+    13,behatā,rich,adjective,male,,
+    14,yanpenkān,headphones,noun,,,
+    15,dadepēpe,to run,verb,,fast,
+
+Custom fields like gender will be autodetected by Lexeme and included in the
+database. The `id` field is not necessary but will be present if the csv file
+has previously been exported from Lexeme. The format of the file to import can
+be somewhat flexible, and Lexeme should autodetect the delimiter
+character.
+
 ####Export
 The `export` command simply exports the current database to a specified file in
 csv format. This can then be imported into spreadsheet programs like
