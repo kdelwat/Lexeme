@@ -1,4 +1,5 @@
 import Library
+import csv
 import IOHelper
 import sys
 import os
@@ -189,6 +190,20 @@ def batchgenerate():
         return 1
 
     print("Finished batch generation!")
+
+
+def importWords():
+    '''Add words from csv file to database.'''
+    filename = input("Enter location of word csv file: ")
+    try:
+        with open(filename, "r") as f:
+            reader = csv.DictReader(f)
+            for word in reader:
+                Library.addWord(word)
+            print("Words successfully imported!")
+
+    except FileNotFoundError:
+        print("File not found! Double-check the path you are using.")
 
 
 def generate(english=None):

@@ -42,6 +42,10 @@ class Lexeme(cmd.Cmd):
         clearScreen()
         batchgenerate()
 
+    def do_import(self, arg):
+        clearScreen()
+        importWords()
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--database", help="set database file")
