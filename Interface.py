@@ -3,14 +3,11 @@ import csv
 import IOHelper
 import sys
 import os
-from pyfiglet import Figlet
 from tabulate import tabulate
 
 wordgensettings = {}
 formrules = {}
 phonotactics = {}
-
-fig = Figlet(font="slant")
 
 
 def add():
@@ -106,7 +103,14 @@ def outputWordList(wordList):
 
 def clearScreen():
     os.system("cls" if os.name == "nt" else "clear")
-    print(fig.renderText("Lexeme"))
+    lexeme = """
+ _
+| |    _____  _____ _ __ ___   ___
+| |   / _ \ \/ / _ | '_ ` _ \ / _ |
+| |__|  __/>  |  __| | | | | |  __/
+|_____\___/_/\_\___|_| |_| |_|\___|
+                                                """
+    print(lexeme)
 
 
 def outputWord(word, first="english"):
