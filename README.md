@@ -14,11 +14,23 @@ generation, and declension program. Contributions are very welcome: see
 + Easily configurable through a file.
 
 ##Installation
-To be honest, who knows?
+There are two ways to install Lexeme.
+
+###Running from source
+1. Download the source ZIP from the sidebar or clone the repository with `git
+clone https://github.com/kdelwat/Lexeme.git`.
+2. Ensure you have the dependencies installed alongside Python 3, which are listed in
+   [requirements](requirements.txt).
+3. Run `python main.py` in the source directory.
+
+###Running from executable
+1. Download the executables for Linux and Windows from the releases page of
+   this repository.
+2. Run the executable from the command line with `./main`.
 
 ##Usage
-###Running
-Run Lexeme from the commandline with `python main.py`. For a list of command-line options, including the ability to set custom database and configuration files, use `python main.py -h`.
+###Options
+For a list of command-line options, including the ability to set custom database and configuration files, use the `-h` flag.
 
 ###Configuration
 The default location for the configuration file is `config.txt`. The comments in example file should help to customise the rules to suit other conlangs.
