@@ -14,19 +14,11 @@ generation, and declension program. Contributions are very welcome: see
 + Easily configurable through a file.
 
 ##Installation
-There are two ways to install Lexeme.
-
-###Running from source
 1. Download the source ZIP from the sidebar or clone the repository with `git
 clone https://github.com/kdelwat/Lexeme.git`.
 2. Ensure you have the dependencies installed alongside Python 3, which are listed in
    [requirements](requirements.txt).
 3. Run `python main.py` in the source directory.
-
-###Running from executable
-1. Download the executables for Linux and Windows from the releases page of
-   this repository.
-2. Run the executable from the command line with `./main`.
 
 ##Usage
 ###Options
