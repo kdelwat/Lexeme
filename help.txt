@@ -139,7 +139,7 @@ The export command simply exports the current database to a specified file in cs
 
 EXPORTWORDS
 ====
-The export command exports the current database into a text file, with strings formatted including to a template specified in the configuration file. For example, the following setting substitutes the fields of word, english, and form:
+The exportwords command exports the current database into a text file, with strings formatted including to a template specified in the configuration file. For example, the following setting substitutes the fields of word, english, and form:
 	
   [EXPORT]
   Format = {{word}} ({{form}}) - {{english}}
