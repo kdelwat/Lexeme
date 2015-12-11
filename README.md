@@ -135,6 +135,25 @@ The `export` command simply exports the current database to a specified file in
 csv format. This can then be imported into spreadsheet programs like
 Libreoffice Calc or programs such as [Polyglot](https://github.com/DraqueT/PolyGlot).
 
+####Exportwords
+The `exportwords` command exports the current database into a text file, with 
+strings formatted including to a template specified in the configuration file. 
+For example, the following setting substitutes the fields of word, english, and 
+form:
+
+    [EXPORT]
+    Format = {{word}} ({{form}}) - {{english}}
+
+This produces a text file in this format:
+
+    tākēsapa (adjective) - poor
+    behatā (adjective) - rich
+    yanpenkān (noun) - headphones
+
+All fields, including custom fields, can be specified in templates through the 
+use of the {{field}} syntax. If a word does not have the specified field, that 
+part of the output will be blank.
+
 ####List
 The `list` command lists words in the database, and can be filtered by specific
 field.
