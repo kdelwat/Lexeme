@@ -8,6 +8,7 @@ from tabulate import tabulate
 wordgensettings = {}
 formrules = {}
 phonotactics = {}
+formatString = ""
 
 
 def add():
@@ -290,6 +291,7 @@ def loadData(filename="config.txt"):
     declensions = result[2]
     wordgencats = result[3]
     phonorules = result[6]
+    exportformat = result[7]
 
     global wordgensettings
     wordgensettings = result[4]
@@ -299,6 +301,9 @@ def loadData(filename="config.txt"):
 
     global phonotactics
     phonotactics = phonorules
+
+    global formatString
+    formatString = exportformat
 
     Library.setPhonemes(phonemes)
     Library.setAllophones(allophones)
@@ -311,7 +316,7 @@ def loadData(filename="config.txt"):
 def exportText():
     '''Interface for exportText().'''
     filename = input("Enter filename to export: ")
-    Library.exportText(filename)
+    Library.exportText(filename, formatString)
 
 
 def export():

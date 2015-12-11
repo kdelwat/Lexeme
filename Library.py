@@ -40,12 +40,10 @@ def getStatistics():
     return len(db['words'])
 
 
-def exportText(filename):
+def exportText(filename, formatString):
     '''Takes filename and outputs text file
     according to format specified in configuration
     file.'''
-    formatString = "{{word}} ({{form}}) - {{english}}, with {{dissonance}}"
-
     fields = db['words'].columns
     fields.remove("id")
 

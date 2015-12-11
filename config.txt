@@ -19,3 +19,6 @@ Justn = n
 [DECLENSION]
 PROG = $->ba
 INCH = $->tse
+
+[EXPORT]
+Format = {{word}} ({{form}}) - {{english}}

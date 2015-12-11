@@ -4,8 +4,8 @@ import configparser
 def parseConfig(filename):
     '''Takes path to config file.
     Returns phonemes, allophones, declension rules, dictionary
-    of word generation categories, word generation settings, and
-    phonotactics rules.
+    of word generation categories, word generation settings,
+    phonotactics rules, and string export settings.
     '''
     parser = configparser.ConfigParser()
     parser.read(filename)
@@ -41,8 +41,10 @@ def parseConfig(filename):
     else:
         formrules = None
 
+    formatString = parser["EXPORT"]["Format"]
+
     return (phonemes, allophones, declensions, wordgencategories, wordsettings,
-            formrules, phonotactics)
+            formrules, phonotactics, formatString)
 
 
 def parseSylRule(string):
