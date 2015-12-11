@@ -40,6 +40,36 @@ def getStatistics():
     return len(db['words'])
 
 
+def exportText(filename):
+    '''Takes filename and outputs text file
+    according to format specified in configuration
+    file.'''
+    formatString = "{{word}} ({{form}}) - {{english}}, with {{dissonance}}"
+
+    fields = db['words'].columns
+    fields.remove("id")
+
+    strings = []
+
+    for word in db['words'].all():
+        s = formatString
+
+        for field in fields:
+            pattern = "{{" + field + "}}"
+
+            if word[field] is not None:
+                substitute = word[field]
+            else:
+                substitute = ""
+
+            s = re.sub(pattern, substitute, s)
+
+        strings.append(s + "\n")
+
+    with open(filename, mode='w') as f:
+        f.writelines(strings)
+
+
 def exportWords(filename):
     '''Takes filename and outputs csv.'''
     allWords = db['words'].all()

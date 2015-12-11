@@ -38,6 +38,10 @@ class Lexeme(cmd.Cmd):
         clearScreen()
         export()
 
+    def do_exportwords(self, arg):
+        clearScreen()
+        exportText()
+
     def do_batch(self, arg):
         clearScreen()
         batchgenerate()

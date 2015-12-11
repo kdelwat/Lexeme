@@ -308,6 +308,12 @@ def loadData(filename="config.txt"):
     return 0
 
 
+def exportText():
+    '''Interface for exportText().'''
+    filename = input("Enter filename to export: ")
+    Library.exportText(filename)
+
+
 def export():
     '''Interface for exportWords().'''
     filename = input("Enter filename to export: ")
