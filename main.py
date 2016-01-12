@@ -48,6 +48,14 @@ class Lexeme(cmd.Cmd):
         clearScreen()
         self.getHelp("DECLINE")
 
+    def do_modify(self, arg):
+        clearScreen()
+        modify()
+
+    def help_modify(self):
+        clearScreen()
+        self.getHelp("MODIFY")
+
     def do_statistics(self, arg):
         clearScreen()
         statistics()

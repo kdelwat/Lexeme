@@ -101,11 +101,14 @@ def declineWord(word, d):
     return word
 
 
-def findConWord(term):
+def findConWord(term, pop=False):
     '''Finds the first occurrence of term in conlang column of database and
     returns as a word.
     '''
     word = db['words'].find_one(word=term)
+
+    if pop is True:
+        db['words'].delete(word=term)
 
     return word
 

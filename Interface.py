@@ -32,6 +32,61 @@ def add():
     print("Word saved in database!")
 
 
+def modify():
+    '''Modify an existing word.'''
+    conword = input("Enter word in conlang: ")
+    if Library.wordExists(conlang=conword):
+        word = Library.findConWord(conword, pop=True)
+        outputWord(word)
+    else:
+        print("Word does not exist")
+        return
+
+    keys = list(word.keys())
+    keys.remove("id")
+    keys.append("NEW")
+    keys.append("DELETE")
+
+    another = True
+
+    while another:
+        key = IOHelper.chooseOption("Enter field to modify", keys)
+
+        if key == "NEW":
+            word = addCustomFields(word, prompt=False)
+        elif key == "DELETE":
+            keys.remove("NEW")
+            keys.remove("DELETE")
+            keys.remove("english")
+            keys.remove("word")
+            key = IOHelper.chooseOption("Enter field to delete", keys)
+            keys.remove(key)
+            del word[key]
+
+            keys.insert(0, "english")
+            keys.insert(0, "word")
+            keys.append("NEW")
+            keys.append("DELETE")
+        else:
+            if key in ["word", "english"]:
+                word[key] = input("Enter new value: ")
+            else:
+                values = Library.getFieldOptions(key)
+                values.append("other")
+
+                v = IOHelper.chooseOption("Enter word value",
+                                          values)
+
+                if v == "other":
+                    v = input("Enter new value: ")
+
+                word[key] = v
+
+        another = not IOHelper.yesNo("Finished modifying")
+
+    Library.addWord(word)
+
+
 def listwords():
     '''Interface for listWords().'''
     t = IOHelper.chooseOption("Enter list type", ["all", "field"])
@@ -251,15 +306,20 @@ def generate(english=None):
     print("Word saved in database!")
 
 
-def addCustomFields(word):
+def addCustomFields(word, prompt=True):
     '''Take word and allow user to set custom fields. Return
     completed word.
     '''
 
-    while IOHelper.yesNo("Add custom field"):
+    if prompt:
+        another = IOHelper.yesNo("Add custom field")
+    else:
+        another = True
+
+    while another:
         options = Library.getFields()
         options.append("other")
-        field = IOHelper.chooseOption("Enter desired field", options)
+        field = IOHelper.chooseOption("Enter desired field to add", options)
         if field == "other":
             new = input("Enter new field: ")
             value = input("Enter word value: ")
@@ -275,6 +335,9 @@ def addCustomFields(word):
                 v = input("Enter new word value: ")
 
             word[field] = v
+
+        another = IOHelper.yesNo("Add custom field")
+
     return word
 
 

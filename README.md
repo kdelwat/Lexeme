@@ -112,6 +112,18 @@ The `add` command is used to add pre-existing words to the database.
     Add custom field? (y/n): n
     Word saved in database!
 
+####Modify
+The `modify` command is used to modify a pre-existing word in-place.
+
+    Enter command: modify
+    Enter word in conlang: yokotun
+    Enter field to modify (word/english/form/gender/NEW/DELETE): DELETE
+    Enter field to delete (form/gender): gender
+    Finished modifying? (y/n): n
+    Enter field to modify (word/english/form/NEW/DELETE): english
+    Enter new value: pig/sow
+    Finished modifying? (y/n): y
+
 ####Batch
 The `batch` command allows a text file of English words to be used in
 generation. The command will step through each word in the file, structured

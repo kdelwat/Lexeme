@@ -36,6 +36,19 @@ The add command is used to add pre-existing words to the database.
   Word saved in database!
 ====
 
+MODIFY
+====
+The modify command is used to modify a pre-existing word in-place.
+
+  Enter command: modify
+  Enter word in conlang: yokotun
+  Enter field to modify (word/english/form/gender/NEW/DELETE): DELETE
+  Enter field to delete (form/gender): gender
+  Finished modifying? (y/n): n
+  Enter field to modify (word/english/form/NEW/DELETE): english
+  Enter new value: pig/sow
+  Finished modifying? (y/n): y
+
 LIST
 ====
 The list command lists words in the database, and can be filtered by specific field.
