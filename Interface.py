@@ -13,23 +13,28 @@ formatString = ""
 
 def add():
     '''Interface for addWord().'''
-    word = {}
-    word['english'] = input("Enter meaning in English: ")
-    word['word'] = input("Enter word in conlang: ")
+    try:
+        word = {}
+        word['english'] = input("Enter meaning in English: ")
+        word['word'] = input("Enter word in conlang: ")
 
-    forms = Library.getFieldOptions("form")
-    forms.append("other")
+        forms = Library.getFieldOptions("form")
+        forms.append("other")
 
-    form = IOHelper.chooseOption("Enter word form",
-                                 forms)
-    if form == "other":
-        form = input("Enter new word form: ")
+        form = IOHelper.chooseOption("Enter word form",
+                                    forms)
+        if form == "other":
+            form = input("Enter new word form: ")
 
-    word['form'] = form
+        word['form'] = form
 
-    word = addCustomFields(word)
-    Library.addWord(word)
-    print("Word saved in database!")
+        word = addCustomFields(word)
+        Library.addWord(word)
+        print("Word saved in database!")
+
+    except KeyboardInterrupt:
+        print("\nWord add cancelled")
+        pass
 
 
 def modify():
