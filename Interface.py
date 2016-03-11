@@ -296,13 +296,11 @@ def generate(english=None):
 
     finalised = False
     while finalised is not True:
-        word = Library.generateWord(english, form, categories, wordgensettings,
-                                    phonotactics, formrules)
+        word = Library.generateWord(english, form, categories, wordgensettings)
         while Library.wordExists(conlang=word['word']):
             word = Library.generateWord(english, form, categories,
-                                        wordgensettings, phonotactics,
-                                        formrules)
-        clearScreen()
+                                        wordgensettings)
+        #clearScreen()
         outputWord(word, "conlang")
 
         accepted = IOHelper.chooseOption("Accept word", ["y", "n", "e"])
@@ -365,17 +363,10 @@ def loadData(filename="config.txt"):
     allophones = result[1]
     declensions = result[2]
     wordgencats = result[3]
-    phonorules = result[6]
-    exportformat = result[7]
+    exportformat = result[5]
 
     global wordgensettings
     wordgensettings = result[4]
-
-    global formrules
-    formrules = result[5]
-
-    global phonotactics
-    phonotactics = phonorules
 
     global formatString
     formatString = exportformat

@@ -28,6 +28,7 @@ def parseConfig(filename):
         wordgencategories[cat] = convertList(parser["WORDGEN-CATEGORIES"][cat])
 
     wordsettings = {}
+    wordsettings["phonotactics"] = phonotactics
     wordsettings["maxS"] = int(parser["WORDGEN-SETTINGS"]["MaxSyllable"])
     wordsettings["minS"] = int(parser["WORDGEN-SETTINGS"]["MinSyllable"])
     wordsettings["rule"] = parseSylRule(parser["WORDGEN-SETTINGS"]["Rule"])
@@ -41,6 +42,8 @@ def parseConfig(filename):
     else:
         formrules = None
 
+    wordsettings["formrules"] = formrules
+
     #Parse form-specific phonotactics
     form_phono = {}
 
@@ -53,7 +56,7 @@ def parseConfig(filename):
     formatString = parser["EXPORT"]["Format"]
 
     return (phonemes, allophones, declensions, wordgencategories, wordsettings,
-            formrules, phonotactics, formatString)
+            formatString)
 
 
 def parseSylRule(string):

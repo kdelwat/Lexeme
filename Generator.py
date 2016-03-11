@@ -2,17 +2,17 @@ import random
 import re
 
 
-def generateWord(meaning, form, categories, settings, phonotactics,
-                 formrules=None):
+def generateWord(meaning, form, categories, settings):
     '''Takes an English string, desired form, generation
     categories, settings, and optional form-specific rules.
     Returns a generated word.
     '''
     word = ""
-
+    print(settings)
     minS = settings["minS"]
     maxS = settings["maxS"]
     defaultrule = settings["rule"]
+    formrules = settings["formrules"]
 
     if formrules is not None:
         if form in formrules:
@@ -25,6 +25,7 @@ def generateWord(meaning, form, categories, settings, phonotactics,
     for syllable in range(random.randint(minS, maxS)):
         word += generateSyllable(categories, rule)
 
+    phonotactics = settings["phonotactics"]
     word = applyPhonotactics(word, phonotactics)
 
     if form in settings["form_phono"]:
