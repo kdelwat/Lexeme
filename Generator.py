@@ -2,17 +2,17 @@ import random
 import re
 
 
-def generateWord(meaning, form, categories, settings):
+def generateWord(meaning, form, settings):
     '''Takes an English string, desired form, generation
     categories, settings, and optional form-specific rules.
     Returns a generated word.
     '''
     word = ""
-    print(settings)
     minS = settings["minS"]
     maxS = settings["maxS"]
     defaultrule = settings["rule"]
     formrules = settings["formrules"]
+    categories = settings["categories"]
 
     if formrules is not None:
         if form in formrules:

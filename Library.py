@@ -7,7 +7,6 @@ db = None
 phonemes = {}
 allophones = {}
 declensions = {}
-categories = {}
 
 
 def transcribePhonemes(word):
@@ -204,15 +203,6 @@ def setPhonemes(l):
 def setAllophones(l):
     global allophones
     allophones = l
-
-
-def setCategories(l):
-    global categories
-    categories = l
-
-
-def getCategories():
-    return categories
 
 
 def setDeclensions(l):

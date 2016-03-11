@@ -292,14 +292,11 @@ def generate(english=None):
     if form == "other":
         form = input("Enter new word form: ")
 
-    categories = Library.getCategories()
-
     finalised = False
     while finalised is not True:
-        word = Library.generateWord(english, form, categories, wordgensettings)
+        word = Library.generateWord(english, form, wordgensettings)
         while Library.wordExists(conlang=word['word']):
-            word = Library.generateWord(english, form, categories,
-                                        wordgensettings)
+            word = Library.generateWord(english, form, wordgensettings)
         #clearScreen()
         outputWord(word, "conlang")
 
@@ -362,18 +359,16 @@ def loadData(filename="config.txt"):
     phonemes = result[0]
     allophones = result[1]
     declensions = result[2]
-    wordgencats = result[3]
-    exportformat = result[5]
+    exportformat = result[4]
 
     global wordgensettings
-    wordgensettings = result[4]
+    wordgensettings = result[3]
 
     global formatString
     formatString = exportformat
 
     Library.setPhonemes(phonemes)
     Library.setAllophones(allophones)
-    Library.setCategories(wordgencats)
     Library.setDeclensions(declensions)
 
     return 0
