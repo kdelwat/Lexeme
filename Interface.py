@@ -294,8 +294,8 @@ def generate(english=None):
 
     categories = Library.getCategories()
 
-    accepted = False
-    while accepted is not True:
+    finalised = False
+    while finalised is not True:
         word = Library.generateWord(english, form, categories, wordgensettings,
                                     phonotactics, formrules)
         while Library.wordExists(conlang=word['word']):
@@ -304,7 +304,13 @@ def generate(english=None):
                                         formrules)
         clearScreen()
         outputWord(word, "conlang")
-        accepted = IOHelper.yesNo("Accept word")
+
+        accepted = IOHelper.chooseOption("Accept word", ["y", "n", "e"])
+        if accepted == "y":
+            finalised = True
+        elif accepted == "e":
+            word['word'] = input("Enter modified word: ")
+            finalised = True
 
     word = addCustomFields(word)
 
