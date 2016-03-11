@@ -122,6 +122,9 @@ def findEnglishWord(term):
     '''
     word = db['words'].find_one(english=term)
 
+    if word is None:
+        raise LookupError
+
     return word
 
 
@@ -130,13 +133,18 @@ def wordExists(english=None, conlang=None):
     list. If word exists in database, returns True, otherwise returns False.
     '''
     if conlang is not None:
-        if findConWord(conlang) is not None:
+        try:
+            findConWord(conlang)
             return True
-    if english is not None:
-        if findEnglishWord(english) is not None:
-            return True
+        except LookupError:
+            return False
 
-    return False
+    if english is not None:
+        try:
+            findEnglishWord(english)
+            return True
+        except LookupError:
+            return False
 
 
 def getFields():
