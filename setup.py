@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
     name='lexeme',
     packages=['lexeme'],
-    version='0.9.1.9.5',
+    version='0.9.1.9.6',
     description='A conlang word database and generation program.',
     author='Cadel Watson',
     author_email='cadel@cadelwatson.com',
@@ -15,4 +15,8 @@ setup(
             'lexeme = lexeme.lexeme:main',
         ],
     },
+    install_requires=[
+        'dataset',
+        'tabulate',
+    ],
 )
