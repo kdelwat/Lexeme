@@ -107,6 +107,9 @@ def findConWord(term, pop=False):
     '''
     word = db['words'].find_one(word=term)
 
+    if word is None:
+        raise LookupError
+
     if pop is True:
         db['words'].delete(word=term)
 
