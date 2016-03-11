@@ -34,6 +34,14 @@ def generateWord(meaning, form, settings):
     return {'english': meaning, 'word': word, 'form': form}
 
 
+def isInt(s):
+    try:
+        int(s)
+        return True
+    except:
+        return False
+
+
 def generateSyllable(categories, rule):
     '''Takes a category dictionary and a rule. Returns a
     generated syllable.
@@ -42,7 +50,17 @@ def generateSyllable(categories, rule):
     for place in rule:
         # Choose whether to include optional category
         if place[0] == "[":
-            if random.randint(1, 2) == 1:
+            # If the optional category begins with a number (1-9), treat that
+            # as the probability of the category being included. Otherwise,
+            # default to 50%.
+
+            if isInt(place[1]):
+                probability = int(place[1])
+                place = place[1:]
+            else:
+                probability = 2
+
+            if random.randint(1, probability) == 1:
                 category = chooseRandomCategory(place)
                 syllable += random.choice(categories[category])
 
