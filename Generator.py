@@ -36,13 +36,28 @@ def generateSyllable(categories, rule):
     '''
     syllable = ""
     for place in rule:
-        if isinstance(place, str):
-            syllable += random.choice(categories[place])
+        # Choose whether to include optional category
+        if place[0] == "[":
+            if random.randint(1, 2) == 1:
+                category = chooseRandomCategory(place)
+                syllable += random.choice(categories[category])
+
+        # Include mandatory list
+        elif place[0] == "{":
+            category = chooseRandomCategory(place)
+            syllable += random.choice(categories[category])
+
+        # Include single category
         else:
-            x = random.choice(place)
-            if x is not None:
-                syllable += random.choice(categories[x])
+            syllable += random.choice(categories[place])
+
     return syllable
+
+
+def chooseRandomCategory(rule):
+    rule = rule[1:-1]
+    categories = rule.split("/")
+    return random.choice(categories)
 
 
 def applyPhonotactics(word, phonotactics):
