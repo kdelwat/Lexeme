@@ -5,16 +5,18 @@ Allophones = ^p:pʷ, ^b:bʷ, ^t:tʷ
 [WORDGEN-SETTINGS]
 MaxSyllable = 4
 MinSyllable = 1
-Rule = Consonants|Vowels
-FormRules = noun:Consonants|Vowels|Justn
+Rule = Consonants|Vowels|rr
+FormRules = noun:Consonants|Vowels, verb:Vowels
 
-[PHONOTACTICS]
+[DEFAULT-PHONOTACTICS]
 LastOToFuntimes = ő$->e
+
+[FORM-PHONOTACTICS]
+noun = $->n, abc->d
 
 [WORDGEN-CATEGORIES]
 Vowels = ő, e, ē, a, ā, o, u, ō
 Consonants = p, b, t, ts, k, s, m, n, y
-Justn = n
 
 [DECLENSION]
 PROG = $->ba
