@@ -62,16 +62,25 @@ def generateSyllable(categories, rule):
 
             if random.randint(1, probability) == 1:
                 category = chooseRandomCategory(place)
-                syllable += random.choice(categories[category])
+                if category in categories:
+                    syllable += random.choice(categories[category])
+                else:
+                    syllable += category
 
         # Include mandatory list
         elif place[0] == "{":
             category = chooseRandomCategory(place)
-            syllable += random.choice(categories[category])
+            if category in categories:
+                syllable += random.choice(categories[category])
+            else:
+                syllable += category
 
         # Include single category
         else:
-            syllable += random.choice(categories[place])
+            if place in categories:
+                syllable += random.choice(categories[place])
+            else:
+                syllable += place
 
     return syllable
 
