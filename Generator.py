@@ -27,6 +27,9 @@ def generateWord(meaning, form, categories, settings, phonotactics,
 
     word = applyPhonotactics(word, phonotactics)
 
+    if form in settings["form_phono"]:
+        word = applyPhonotactics(word, settings["form_phono"][form])
+
     return {'english': meaning, 'word': word, 'form': form}
 
 
@@ -61,9 +64,9 @@ def chooseRandomCategory(rule):
 
 
 def applyPhonotactics(word, phonotactics):
-    '''Takes dictionary of phonotactics rules and a word. Returns
+    '''Takes list of phonotactics rules and a word. Returns
     word with all rules applied.'''
-    for name, rule in phonotactics.items():
+    for rule in phonotactics:
         r = rule.split("->")
         word = re.sub(r[0], r[1], word)
     return word

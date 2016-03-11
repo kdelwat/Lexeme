@@ -19,9 +19,9 @@ def parseConfig(filename):
     for rule in parser["DECLENSION"]:
         declensions[rule] = parser["DECLENSION"][rule]
 
-    phonotactics = {}
-    for rule in parser["PHONOTACTICS"]:
-        phonotactics[rule] = parser["PHONOTACTICS"][rule]
+    phonotactics = []
+    for rule in parser["DEFAULT-PHONOTACTICS"]:
+        phonotactics.append(parser["DEFAULT-PHONOTACTICS"][rule])
 
     wordgencategories = {}
     for cat in parser["WORDGEN-CATEGORIES"]:
@@ -40,6 +40,15 @@ def parseConfig(filename):
             formrules[rule] = parseSylRule(formrules[rule])
     else:
         formrules = None
+
+    #Parse form-specific phonotactics
+    form_phono = {}
+
+    if "FORM-PHONOTACTICS" in parser:
+        for form in parser["FORM-PHONOTACTICS"]:
+            form_phono[form] = convertList(parser["FORM-PHONOTACTICS"][form])
+
+    wordsettings["form_phono"] = form_phono
 
     formatString = parser["EXPORT"]["Format"]
 
