@@ -13,83 +13,84 @@ formatString = ""
 
 def add():
     '''Interface for addWord().'''
-    try:
-        word = {}
-        word['english'] = input("Enter meaning in English: ")
-        word['word'] = input("Enter word in conlang: ")
+    word = {}
+    word['english'] = input("Enter meaning in English: ")
+    word['word'] = input("Enter word in conlang: ")
 
-        forms = Library.getFieldOptions("form")
-        forms.append("other")
+    forms = Library.getFieldOptions("form")
+    forms.append("other")
 
-        form = IOHelper.chooseOption("Enter word form",
-                                    forms)
-        if form == "other":
-            form = input("Enter new word form: ")
+    form = IOHelper.chooseOption("Enter word form",
+                                forms)
+    if form == "other":
+        form = input("Enter new word form: ")
 
-        word['form'] = form
+    word['form'] = form
 
-        word = addCustomFields(word)
-        Library.addWord(word)
-        print("Word saved in database!")
-
-    except KeyboardInterrupt:
-        print("\nWord add cancelled")
-        pass
+    word = addCustomFields(word)
+    Library.addWord(word)
+    print("Word saved in database!")
 
 
 def modify():
     '''Modify an existing word.'''
-    conword = input("Enter word in conlang: ")
-    if Library.wordExists(conlang=conword):
-        word = Library.findConWord(conword, pop=True)
-        outputWord(word)
-    else:
-        print("Word does not exist")
-        return
-
-    keys = list(word.keys())
-    keys.remove("id")
-    keys.append("NEW")
-    keys.append("DELETE")
-
-    another = True
-
-    while another:
-        key = IOHelper.chooseOption("Enter field to modify", keys)
-
-        if key == "NEW":
-            word = addCustomFields(word, prompt=False)
-        elif key == "DELETE":
-            keys.remove("NEW")
-            keys.remove("DELETE")
-            keys.remove("english")
-            keys.remove("word")
-            key = IOHelper.chooseOption("Enter field to delete", keys)
-            keys.remove(key)
-            del word[key]
-
-            keys.insert(0, "english")
-            keys.insert(0, "word")
-            keys.append("NEW")
-            keys.append("DELETE")
+    try:
+        conword = input("Enter word in conlang: ")
+        if Library.wordExists(conlang=conword):
+            word = Library.findConWord(conword, pop=False)
+            outputWord(word)
         else:
-            if key in ["word", "english"]:
-                word[key] = input("Enter new value: ")
+            print("Word does not exist")
+            return
+
+        keys = list(word.keys())
+        keys.remove("id")
+        keys.append("NEW")
+        keys.append("DELETE")
+
+        another = True
+
+        while another:
+            key = IOHelper.chooseOption("Enter field to modify", keys)
+
+            if key == "NEW":
+                word = addCustomFields(word, prompt=False)
+            elif key == "DELETE":
+                keys.remove("NEW")
+                keys.remove("DELETE")
+                keys.remove("english")
+                keys.remove("word")
+                key = IOHelper.chooseOption("Enter field to delete", keys)
+                keys.remove(key)
+                del word[key]
+
+                keys.insert(0, "english")
+                keys.insert(0, "word")
+                keys.append("NEW")
+                keys.append("DELETE")
             else:
-                values = Library.getFieldOptions(key)
-                values.append("other")
+                if key in ["word", "english"]:
+                    word[key] = input("Enter new value: ")
+                else:
+                    values = Library.getFieldOptions(key)
+                    values.append("other")
 
-                v = IOHelper.chooseOption("Enter word value",
-                                          values)
+                    v = IOHelper.chooseOption("Enter word value",
+                                              values)
 
-                if v == "other":
-                    v = input("Enter new value: ")
+                    if v == "other":
+                        v = input("Enter new value: ")
 
-                word[key] = v
+                    word[key] = v
 
-        another = not IOHelper.yesNo("Finished modifying")
+            another = not IOHelper.yesNo("Finished modifying")
 
-    Library.addWord(word)
+        # Delete word if finished modifying and add new word
+        Library.findConWord(conword, pop=True)
+        Library.addWord(word)
+
+    except KeyboardInterrupt:
+        pass
 
 
 def listwords():

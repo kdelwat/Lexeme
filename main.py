@@ -19,7 +19,10 @@ class Lexeme(cmd.Cmd):
 
     def do_list(self, arg):
         clearScreen()
-        listwords()
+        try:
+            listwords()
+        except KeyboardInterrupt:
+            pass
 
     def help_list(self):
         clearScreen()
@@ -34,7 +37,10 @@ class Lexeme(cmd.Cmd):
 
     def do_add(self, arg):
         clearScreen()
-        add()
+        try:
+            add()
+        except KeyboardInterrupt:
+            pass
 
     def help_add(self):
         clearScreen()
@@ -42,7 +48,10 @@ class Lexeme(cmd.Cmd):
 
     def do_decline(self, arg):
         clearScreen()
-        decline()
+        try:
+            decline()
+        except KeyboardInterrupt:
+            pass
 
     def help_decline(self):
         clearScreen()
@@ -66,7 +75,10 @@ class Lexeme(cmd.Cmd):
 
     def do_search(self, arg):
         clearScreen()
-        search()
+        try:
+            search()
+        except KeyboardInterrupt:
+            pass
 
     def help_search(self):
         clearScreen()
@@ -74,7 +86,10 @@ class Lexeme(cmd.Cmd):
 
     def do_generate(self, arg):
         clearScreen()
-        generate()
+        try:
+            generate()
+        except KeyboardInterrupt:
+            pass
 
     def help_generate(self, arg):
         clearScreen()
@@ -82,7 +97,10 @@ class Lexeme(cmd.Cmd):
 
     def do_export(self, arg):
         clearScreen()
-        export()
+        try:
+            export()
+        except KeyboardInterrupt:
+            pass
 
     def help_export(self, arg):
         clearScreen()
@@ -90,7 +108,10 @@ class Lexeme(cmd.Cmd):
 
     def do_exportwords(self, arg):
         clearScreen()
-        exportText()
+        try:
+            exportText()
+        except KeyboardInterrupt:
+            pass
 
     def help_exportwords(self):
         clearScreen()
@@ -98,7 +119,10 @@ class Lexeme(cmd.Cmd):
 
     def do_batch(self, arg):
         clearScreen()
-        batchgenerate()
+        try:
+            batchgenerate()
+        except KeyboardInterrupt:
+            pass
 
     def help_batch(self):
         clearScreen()
@@ -106,7 +130,10 @@ class Lexeme(cmd.Cmd):
 
     def do_import(self, arg):
         clearScreen()
-        importWords()
+        try:
+            importWords()
+        except KeyboardInterrupt:
+            pass
 
     def help_import(self):
         clearScreen()
