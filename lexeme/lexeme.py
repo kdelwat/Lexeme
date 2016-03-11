@@ -1,6 +1,6 @@
 import cmd
 import argparse
-from Interface import *
+from lexeme.Interface import *
 
 
 class Lexeme(cmd.Cmd):
@@ -139,7 +139,7 @@ class Lexeme(cmd.Cmd):
         clearScreen()
         self.getHelp("IMPORT")
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--database", help="set database file")
     parser.add_argument("--config", help="set configuration file")
@@ -159,3 +159,6 @@ if __name__ == "__main__":
     clearScreen()
 
     Lexeme().cmdloop()
+
+if __name__ == "__main__":
+    main()

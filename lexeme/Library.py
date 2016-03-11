@@ -1,7 +1,7 @@
 import dataset
 import re
 
-from Generator import generateWord
+from lexeme.Generator import generateWord
 
 db = None
 phonemes = {}

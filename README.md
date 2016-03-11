@@ -4,7 +4,7 @@ generation, and declension program. Contributions are very welcome: see
 [CONTRIBUTING](CONTRIBUTING.md).
 
 ##Features
-+ Words are saved in a searchable, filterable SQLite database.
++ Words are saved in a searchable and filterable SQLite database.
 + Generate words according to a basic syllable rule, or use advanced rules to specify unique patterns for different parts of speech. Phonotactics rules can be further applied during generation.
 + Tag words with custom fields, for example gender or vowel harmony type, and filter the database according to any field.
 + Batch generate words from file.

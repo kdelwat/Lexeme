@@ -1,6 +1,6 @@
-import Library
+import lexeme.Library as Library
 import csv
-import IOHelper
+import lexeme.IOHelper as IOHelper
 import sys
 import os
 from tabulate import tabulate
