@@ -1,4 +1,24 @@
 import configparser
+import os.path
+from distutils.sysconfig import get_python_lib
+from shutil import copyfile
+
+DEFAULT_CONFIG = 'default-config.txt'
+
+
+def getParser(filename):
+    print("Getting parser for", filename)
+    parser = configparser.ConfigParser()
+
+    if filename is None:
+        if not os.path.isfile('lexeme-config.txt'):
+            default_conf = get_python_lib() + '/lexeme/' + DEFAULT_CONFIG
+            copyfile(default_conf, 'lexeme-config.txt')
+        parser.read('lexeme-config.txt')
+    else:
+        parser.read(filename)
+
+    return parser
 
 
 def parseConfig(filename):
@@ -7,8 +27,7 @@ def parseConfig(filename):
     of word generation categories, word generation settings,
     phonotactics rules, and string export settings.
     '''
-    parser = configparser.ConfigParser()
-    parser.read(filename)
+    parser = getParser(filename)
 
     rawphonemes = convertList(parser["TRANSCRIPTION"]["Phonemes"])
     phonemes = convertListToDic(rawphonemes)

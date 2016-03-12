@@ -2,7 +2,6 @@ import cmd
 import argparse
 from lexeme.Interface import *
 
-
 class Lexeme(cmd.Cmd):
     intro = "Welcome to Lexeme! Input '?' for help and commands."
     prompt = "\nEnter command: "
@@ -138,6 +137,7 @@ class Lexeme(cmd.Cmd):
     def help_import(self):
         clearScreen()
         self.getHelp("IMPORT")
+
 
 def main():
     parser = argparse.ArgumentParser()

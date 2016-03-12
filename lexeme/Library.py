@@ -210,7 +210,7 @@ def setDeclensions(l):
     declensions = l
 
 
-def loadDatabase(filename="words.db"):
+def loadDatabase(filename="lexeme-lexicon.db"):
     global db
 
     location = "sqlite:///" + filename

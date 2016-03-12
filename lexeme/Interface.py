@@ -348,7 +348,7 @@ def addCustomFields(word, prompt=True):
     return word
 
 
-def loadData(filename="config.txt"):
+def loadData(filename=None):
     '''Loads data from config file and passes it to Library.'''
     try:
         result = IOHelper.parseConfig(filename)

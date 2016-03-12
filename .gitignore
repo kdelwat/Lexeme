@@ -1,3 +1,5 @@
 *.swp
 *.db
 __pycache__/
+MANIFEST
+dist/
