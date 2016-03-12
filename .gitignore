@@ -3,3 +3,5 @@
 __pycache__/
 MANIFEST
 dist/
+lexeme-config.txt
+lexeme-lexicon.db

@@ -14,54 +14,11 @@ generation, and declension program. Contributions are very welcome: see
 + Easily configurable through a file.
 
 ##Installation
-1. Download the source ZIP from the sidebar or clone the repository with `git
-clone https://github.com/kdelwat/Lexeme.git`.
-2. Ensure you have the dependencies installed alongside Python 3, which are listed in
-   [requirements](requirements.txt).
-3. Run `python main.py` in the source directory.
 
-###Windows Installation
-
-*Credit to /u/mbartelsm on Reddit for the original version of these 
-instructions!*
-
-1. Install [Python 3](https://www.python.org/).
-2. Open the command prompt (Press WIN+R, type cmd and hit enter).
-3. Enter python -V and hit enter. If it returns the version of python, go to 
-   step 5. Otherwise, go to step 4.
-4. Add Python to the PATH of your computer.
-    1. Open Windows Explorer and navigate to "This PC".
-    2. Right click on an empty space and click properties.
-    3. Go to 'Advanced System Settings', then 'Environment Variables', 'User 
-       Variables'.
-    4. Find the variable named 'PATH', select it and click 'Edit'.
-    5. At the end of the PATH, type a semicolon (;) and the location of your 
-        Python installation and the scripts directory after it (no spaces). It 
-        should look something like:
-            
-            ;C:\Users\USERNAME\AppData\Local\Programs\Python\Python35-32\;C:\Users\USERNAME\AppData\Local\Programs\Python\Python35-32\Scripts\
-
-        (Replace 'USERNAME' with your username).
-       
-        Or like this:
-
-            ;C:\Python35-32\;C:\Python35-32\Scripts\
-       
-        If there's no PATH variable, click 'New', then enter "PATH" into the 
-        field "Variable Name". In "Variable Value" enter the PATH value above, 
-        without the first semicolon.
-5. Install dependencies by entering the given commands into the command prompt.
-    + [tabulate](https://pypi.python.org/pypi/tabulate): `pip install tabulate 
-      --user`.
-    + [dataset](https://pypi.python.org/pypi/dataset/0.3): `pip install dataset 
-      --user`.
-   NOTE: Python may be installed at C:\Python-35-32\, in which case you'll need 
-   to omit `--user` when installing the dependencies
-6. Navigate in the command prompt to the folder where Lexeme is downloaded, 
-   using a command like `cd C:\path\to\lexeme`.
-7. Enter the command `python main.py`.
+Run `pip install lexeme` from a command prompt.
 
 ##Usage
+
 ###Options
 For a list of command-line options, including the ability to set custom database and configuration files, use the `-h` flag.
 
